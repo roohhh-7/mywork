@@ -9,7 +9,7 @@ export async function addNoteAction(projectId: string, title: string, content: s
     data: { projectId, title, content, color: color || null }
   });
   revalidatePath(`/projects/${projectId}`);
-  return { note };
+  return { note, error: undefined };
 }
 
 export async function addLinkAction(projectId: string, title: string, url: string, description?: string, color?: string) {
@@ -18,13 +18,11 @@ export async function addLinkAction(projectId: string, title: string, url: strin
     data: { projectId, title, url, description: description || null, color: color || null }
   });
   revalidatePath(`/projects/${projectId}`);
-  return { link };
+  return { link, error: undefined };
 }
 
 export async function addFileAction(projectId: string, name: string, fileDataUrl: string, fileSize: number, fileType: string) {
-  // In a real app we'd upload this to Supabase Storage or S3
-  // Here we just simulate storing it by storing the Data URL (bad for DB size in prod, fine for this quick MVP logic demonstration).
-  // Ideally we'd save to public/uploads
+  if (!name || !fileDataUrl) return { error: "File data is required" };
   
   const file = await prisma.file.create({
     data: {
@@ -36,5 +34,5 @@ export async function addFileAction(projectId: string, name: string, fileDataUrl
     }
   });
   revalidatePath(`/projects/${projectId}`);
-  return { file };
+  return { file, error: undefined };
 }

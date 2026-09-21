@@ -21,5 +21,5 @@ export async function createProject(formData: FormData) {
 
   revalidatePath("/");
   revalidatePath("/projects");
-  return { project };
+  return { project, error: undefined };
 }

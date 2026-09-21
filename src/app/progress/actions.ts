@@ -17,5 +17,5 @@ export async function addProgressAction(content: string, projectId?: string) {
 
   revalidatePath("/");
   revalidatePath("/progress");
-  return { item };
+  return { item, error: undefined };
 }
