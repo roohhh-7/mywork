@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
 import { ArrowLeft, FileText, Link as LinkIcon, File } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { InlineNoteForm, InlineLinkForm, InlineFileForm } from "./InlineForms";
 
 export const dynamic = "force-dynamic";
