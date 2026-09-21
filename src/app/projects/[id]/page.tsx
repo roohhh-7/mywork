@@ -2,10 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
-import { ArrowLeft, Plus } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ProjectResourceList } from "./ProjectResourceList";
-import { AddResourceDialog } from "./AddResourceDialog";
+import { ArrowLeft, FileText, Link as LinkIcon, File } from "lucide-react";
+import { InlineNoteForm, InlineLinkForm, InlineFileForm } from "./InlineForms";
 
 export const dynamic = "force-dynamic";
 
@@ -22,26 +20,16 @@ export default async function ProjectPage(props: { params: Promise<{ id: string 
 
   if (!project) return notFound();
 
-  const allResources = [
-    ...project.notes.map(n => ({ ...n, type: "note" as const })),
-    ...project.links.map(l => ({ ...l, type: "link" as const })),
-    ...project.files.map(f => ({ ...f, type: "file" as const }))
-  ].sort((a, b) => {
-    const dateA = a.type === 'note' ? a.updatedAt : a.createdAt;
-    const dateB = b.type === 'note' ? b.updatedAt : b.createdAt;
-    return dateB.getTime() - dateA.getTime();
-  });
-
   return (
-    <div className="space-y-6">
-      <div className="flex items-center text-sm text-zinc-500 mb-4">
+    <div className="space-y-10">
+      <div className="flex items-center text-sm text-zinc-500">
         <Link href="/projects" className="flex items-center hover:text-zinc-900 transition-colors">
           <ArrowLeft className="h-4 w-4 mr-1" />
           Projects
         </Link>
       </div>
 
-      <header className="relative">
+      <header className="relative pb-6 border-b border-zinc-100">
         {project.color && (
           <div className="absolute -left-8 top-1 bottom-1 w-1 rounded-r-md" style={{ backgroundColor: project.color }} />
         )}
@@ -49,52 +37,78 @@ export default async function ProjectPage(props: { params: Promise<{ id: string 
         {project.description && (
           <p className="mt-2 text-zinc-600 max-w-3xl">{project.description}</p>
         )}
-        <div className="mt-4 flex items-center gap-3 text-sm text-zinc-500">
-          <span className="font-medium uppercase tracking-wider bg-zinc-100 px-2 py-0.5 rounded-full text-xs">
-            {project.status}
-          </span>
-          <span>&middot;</span>
-          <span>Updated {formatDistanceToNow(project.updatedAt, { addSuffix: true })}</span>
-        </div>
       </header>
 
-      <div className="pt-6">
-        <Tabs defaultValue="all" className="w-full">
-          <div className="flex items-center justify-between border-b pb-2 mb-6">
-            <TabsList className="bg-transparent h-auto p-0 space-x-6">
-              <TabsTrigger value="all" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-zinc-900 data-[state=active]:border-b-2 data-[state=active]:border-zinc-900 rounded-none px-0 pb-2 font-medium text-zinc-500">
-                All
-              </TabsTrigger>
-              <TabsTrigger value="notes" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-zinc-900 data-[state=active]:border-b-2 data-[state=active]:border-zinc-900 rounded-none px-0 pb-2 font-medium text-zinc-500">
-                Notes
-              </TabsTrigger>
-              <TabsTrigger value="links" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-zinc-900 data-[state=active]:border-b-2 data-[state=active]:border-zinc-900 rounded-none px-0 pb-2 font-medium text-zinc-500">
-                Links
-              </TabsTrigger>
-              <TabsTrigger value="files" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-zinc-900 data-[state=active]:border-b-2 data-[state=active]:border-zinc-900 rounded-none px-0 pb-2 font-medium text-zinc-500">
-                Files
-              </TabsTrigger>
-            </TabsList>
-            
-            <AddResourceDialog projectId={project.id} />
+      {/* Grid Layout for the 3 sections */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        {/* NOTES SECTION */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 font-medium text-zinc-900 border-b pb-2">
+            <FileText className="h-4 w-4" />
+            Notes
           </div>
+          <InlineNoteForm projectId={project.id} />
+          
+          <div className="space-y-3 mt-6">
+            {project.notes.map(note => (
+              <div key={note.id} className="bg-zinc-50/50 border border-zinc-100 rounded-lg p-4 shadow-sm hover:border-zinc-300 transition-colors">
+                <p className="text-sm text-zinc-700 whitespace-pre-wrap">{note.content}</p>
+                <div className="mt-3 text-[10px] text-zinc-400 uppercase tracking-wider">
+                  {formatDistanceToNow(note.updatedAt, { addSuffix: true })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
-          <TabsContent value="all" className="mt-0 outline-none">
-            <ProjectResourceList resources={allResources} />
-          </TabsContent>
+        {/* LINKS SECTION */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 font-medium text-zinc-900 border-b pb-2">
+            <LinkIcon className="h-4 w-4" />
+            Links
+          </div>
+          <InlineLinkForm projectId={project.id} />
           
-          <TabsContent value="notes" className="mt-0 outline-none">
-            <ProjectResourceList resources={project.notes.map(n => ({ ...n, type: "note" as const }))} />
-          </TabsContent>
+          <div className="space-y-3 mt-6">
+            {project.links.map(link => (
+              <a key={link.id} href={link.url} target="_blank" rel="noreferrer" className="block bg-zinc-50/50 border border-zinc-100 rounded-lg p-4 shadow-sm hover:border-zinc-300 transition-colors">
+                <div className="font-medium text-sm text-zinc-900 line-clamp-1 break-all">{new URL(link.url).hostname}</div>
+                {link.description && (
+                  <p className="mt-1 text-sm text-zinc-600 line-clamp-2">{link.description}</p>
+                )}
+                <div className="mt-3 text-[10px] text-zinc-400 uppercase tracking-wider">
+                  {formatDistanceToNow(link.createdAt, { addSuffix: true })}
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* FILES SECTION */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 font-medium text-zinc-900 border-b pb-2">
+            <File className="h-4 w-4" />
+            Files
+          </div>
+          <InlineFileForm projectId={project.id} />
           
-          <TabsContent value="links" className="mt-0 outline-none">
-            <ProjectResourceList resources={project.links.map(l => ({ ...l, type: "link" as const }))} />
-          </TabsContent>
-          
-          <TabsContent value="files" className="mt-0 outline-none">
-            <ProjectResourceList resources={project.files.map(f => ({ ...f, type: "file" as const }))} />
-          </TabsContent>
-        </Tabs>
+          <div className="space-y-3 mt-6">
+            {project.files.map(file => (
+              <div key={file.id} className="bg-zinc-50/50 border border-zinc-100 rounded-lg p-4 shadow-sm flex items-center justify-between hover:border-zinc-300 transition-colors">
+                <div className="min-w-0">
+                  <div className="font-medium text-sm text-zinc-900 truncate">{file.name}</div>
+                  <div className="mt-1 text-[10px] text-zinc-400 uppercase tracking-wider flex items-center gap-2">
+                    <span>{(file.fileSize / 1024 / 1024).toFixed(2)} MB</span>
+                    <span>&middot;</span>
+                    <span>{formatDistanceToNow(file.createdAt, { addSuffix: true })}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </div>
   );
