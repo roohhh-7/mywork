@@ -25,7 +25,7 @@ export function InlineNoteForm({ projectId }: { projectId: string }) {
     <div className="flex flex-col gap-2">
       <Textarea 
         placeholder="Write a note..." 
-        className="min-h-[80px] resize-none bg-zinc-50 border-zinc-200 text-sm"
+        className="min-h-[80px] resize-none bg-white border-zinc-200 text-sm focus-visible:ring-1 focus-visible:ring-zinc-900 shadow-sm"
         value={content}
         onChange={e => setContent(e.target.value)}
         onKeyDown={e => {
@@ -35,8 +35,8 @@ export function InlineNoteForm({ projectId }: { projectId: string }) {
         }}
         disabled={loading}
       />
-      <div className="flex justify-end">
-        <Button size="sm" onClick={handleAdd} disabled={!content.trim() || loading} className="bg-zinc-900 text-white">Save Note (⌘+Enter)</Button>
+      <div className="flex justify-end mt-1">
+        <Button size="sm" onClick={handleAdd} disabled={!content.trim() || loading} className="bg-zinc-900 text-white font-sans h-8 px-3 text-xs shadow-none">Add Note</Button>
       </div>
     </div>
   );
@@ -50,7 +50,6 @@ export function InlineLinkForm({ projectId }: { projectId: string }) {
   async function handleAdd() {
     if (!url.trim()) return;
     setLoading(true);
-    // Use the URL hostname as title if no caption is provided, or just use caption as title
     const res = await addLinkAction(projectId, caption.trim() || url, url, caption);
     setLoading(false);
     if (res.error) toast.error(res.error);
@@ -58,23 +57,23 @@ export function InlineLinkForm({ projectId }: { projectId: string }) {
   }
 
   return (
-    <div className="flex flex-col gap-2 p-3 bg-zinc-50 border border-zinc-200 rounded-lg">
+    <div className="flex flex-col gap-3 p-4 bg-white border border-zinc-200 rounded-lg shadow-sm">
       <Input 
         placeholder="https://..." 
         value={url}
         onChange={e => setUrl(e.target.value)}
         disabled={loading}
-        className="bg-white border-zinc-200"
+        className="bg-white border-zinc-200 focus-visible:ring-1 focus-visible:ring-zinc-900 h-9"
       />
       <Input 
         placeholder="Caption or note about this link..." 
         value={caption}
         onChange={e => setCaption(e.target.value)}
         disabled={loading}
-        className="bg-white border-zinc-200"
+        className="bg-white border-zinc-200 focus-visible:ring-1 focus-visible:ring-zinc-900 h-9"
       />
       <div className="flex justify-end mt-1">
-        <Button size="sm" onClick={handleAdd} disabled={!url.trim() || loading} className="bg-zinc-900 text-white">Save Link</Button>
+        <Button size="sm" onClick={handleAdd} disabled={!url.trim() || loading} className="bg-zinc-900 text-white font-sans h-8 px-3 text-xs shadow-none">Add Link</Button>
       </div>
     </div>
   );
@@ -105,9 +104,9 @@ export function InlineFileForm({ projectId }: { projectId: string }) {
       <button 
         onClick={() => fileInputRef.current?.click()}
         disabled={loading}
-        className="w-full py-8 border-2 border-dashed border-zinc-200 rounded-lg flex flex-col items-center justify-center text-zinc-500 hover:border-zinc-300 hover:bg-zinc-50 transition-colors"
+        className="w-full py-6 border border-dashed border-zinc-300 bg-zinc-50/50 rounded-lg flex flex-col items-center justify-center text-zinc-500 hover:border-zinc-400 hover:bg-zinc-50 transition-colors shadow-sm"
       >
-        <Upload className="h-6 w-6 mb-2 text-zinc-400" />
+        <Upload className="h-5 w-5 mb-2 text-zinc-400" />
         <span className="text-sm font-medium">{loading ? "Uploading..." : "Click to upload file"}</span>
       </button>
     </div>

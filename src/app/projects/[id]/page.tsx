@@ -39,76 +39,73 @@ export default async function ProjectPage(props: { params: Promise<{ id: string 
         )}
       </header>
 
-      {/* Grid Layout for the 3 sections */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        {/* NOTES SECTION */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 font-medium text-zinc-900 border-b pb-2">
-            <FileText className="h-4 w-4" />
-            Notes
-          </div>
-          <InlineNoteForm projectId={project.id} />
-          
-          <div className="space-y-3 mt-6">
-            {project.notes.map(note => (
-              <div key={note.id} className="bg-zinc-50/50 border border-zinc-100 rounded-lg p-4 shadow-sm hover:border-zinc-300 transition-colors">
-                <p className="text-sm text-zinc-700 whitespace-pre-wrap">{note.content}</p>
-                <div className="mt-3 text-[10px] text-zinc-400 uppercase tracking-wider">
-                  {formatDistanceToNow(note.updatedAt, { addSuffix: true })}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+      {/* Tabs Layout */}
+      <div className="pt-2">
+        <Tabs defaultValue="notes" className="w-full">
+          <TabsList className="bg-transparent h-auto p-0 space-x-6 w-full justify-start rounded-none mb-6 border-b border-zinc-200">
+            <TabsTrigger value="notes" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-zinc-900 data-[state=active]:border-b-2 data-[state=active]:border-zinc-900 rounded-none px-1 pb-2.5 font-medium text-sm text-zinc-500 hover:text-zinc-700 transition-colors">
+              <FileText className="h-4 w-4 mr-2" />
+              Notes
+            </TabsTrigger>
+            <TabsTrigger value="links" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-zinc-900 data-[state=active]:border-b-2 data-[state=active]:border-zinc-900 rounded-none px-1 pb-2.5 font-medium text-sm text-zinc-500 hover:text-zinc-700 transition-colors">
+              <LinkIcon className="h-4 w-4 mr-2" />
+              Links
+            </TabsTrigger>
+            <TabsTrigger value="files" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-zinc-900 data-[state=active]:border-b-2 data-[state=active]:border-zinc-900 rounded-none px-1 pb-2.5 font-medium text-sm text-zinc-500 hover:text-zinc-700 transition-colors">
+              <File className="h-4 w-4 mr-2" />
+              Files
+            </TabsTrigger>
+          </TabsList>
 
-        {/* LINKS SECTION */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 font-medium text-zinc-900 border-b pb-2">
-            <LinkIcon className="h-4 w-4" />
-            Links
-          </div>
-          <InlineLinkForm projectId={project.id} />
-          
-          <div className="space-y-3 mt-6">
-            {project.links.map(link => (
-              <a key={link.id} href={link.url} target="_blank" rel="noreferrer" className="block bg-zinc-50/50 border border-zinc-100 rounded-lg p-4 shadow-sm hover:border-zinc-300 transition-colors">
-                <div className="font-medium text-sm text-zinc-900 line-clamp-1 break-all">{new URL(link.url).hostname}</div>
-                {link.description && (
-                  <p className="mt-1 text-sm text-zinc-600 line-clamp-2">{link.description}</p>
-                )}
-                <div className="mt-3 text-[10px] text-zinc-400 uppercase tracking-wider">
-                  {formatDistanceToNow(link.createdAt, { addSuffix: true })}
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* FILES SECTION */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 font-medium text-zinc-900 border-b pb-2">
-            <File className="h-4 w-4" />
-            Files
-          </div>
-          <InlineFileForm projectId={project.id} />
-          
-          <div className="space-y-3 mt-6">
-            {project.files.map(file => (
-              <div key={file.id} className="bg-zinc-50/50 border border-zinc-100 rounded-lg p-4 shadow-sm flex items-center justify-between hover:border-zinc-300 transition-colors">
-                <div className="min-w-0">
-                  <div className="font-medium text-sm text-zinc-900 truncate">{file.name}</div>
-                  <div className="mt-1 text-[10px] text-zinc-400 uppercase tracking-wider flex items-center gap-2">
-                    <span>{(file.fileSize / 1024 / 1024).toFixed(2)} MB</span>
-                    <span>&middot;</span>
-                    <span>{formatDistanceToNow(file.createdAt, { addSuffix: true })}</span>
+          <TabsContent value="notes" className="mt-0 outline-none max-w-3xl space-y-6">
+            <InlineNoteForm projectId={project.id} />
+            <div className="space-y-3">
+              {project.notes.map(note => (
+                <div key={note.id} className="bg-white border border-zinc-200 rounded-lg p-4 shadow-sm hover:border-zinc-300 transition-colors">
+                  <p className="text-[14px] text-zinc-800 whitespace-pre-wrap leading-relaxed">{note.content}</p>
+                  <div className="mt-3 text-[11px] text-zinc-400 font-medium">
+                    {formatDistanceToNow(note.updatedAt, { addSuffix: true })}
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
+              ))}
+            </div>
+          </TabsContent>
 
+          <TabsContent value="links" className="mt-0 outline-none max-w-3xl space-y-6">
+            <InlineLinkForm projectId={project.id} />
+            <div className="space-y-3">
+              {project.links.map(link => (
+                <a key={link.id} href={link.url} target="_blank" rel="noreferrer" className="block bg-white border border-zinc-200 rounded-lg p-4 shadow-sm hover:border-zinc-300 transition-colors">
+                  <div className="font-medium text-[14px] text-zinc-900 line-clamp-1 break-all mb-1 hover:underline">{new URL(link.url).hostname}</div>
+                  {link.description && (
+                    <p className="text-[13px] text-zinc-600 line-clamp-2">{link.description}</p>
+                  )}
+                  <div className="mt-3 text-[11px] text-zinc-400 font-medium">
+                    {formatDistanceToNow(link.createdAt, { addSuffix: true })}
+                  </div>
+                </a>
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="files" className="mt-0 outline-none max-w-3xl space-y-6">
+            <InlineFileForm projectId={project.id} />
+            <div className="space-y-3">
+              {project.files.map(file => (
+                <div key={file.id} className="bg-white border border-zinc-200 rounded-lg p-4 shadow-sm flex items-center justify-between hover:border-zinc-300 transition-colors">
+                  <div className="min-w-0">
+                    <div className="font-medium text-[14px] text-zinc-900 truncate">{file.name}</div>
+                    <div className="mt-1 text-[11px] text-zinc-400 font-medium flex items-center gap-2">
+                      <span>{(file.fileSize / 1024 / 1024).toFixed(2)} MB</span>
+                      <span>&middot;</span>
+                      <span>{formatDistanceToNow(file.createdAt, { addSuffix: true })}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
