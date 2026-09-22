@@ -36,3 +36,30 @@ export async function addFileAction(projectId: string, name: string, fileDataUrl
   revalidatePath(`/projects/${projectId}`);
   return { file, error: undefined };
 }
+
+export async function updateNoteStatus(projectId: string, noteId: string, status: string) {
+  await prisma.note.update({
+    where: { id: noteId },
+    data: { status }
+  });
+  revalidatePath(`/projects/${projectId}`);
+  return { error: undefined };
+}
+
+export async function updateLinkStatus(projectId: string, linkId: string, status: string) {
+  await prisma.link.update({
+    where: { id: linkId },
+    data: { status }
+  });
+  revalidatePath(`/projects/${projectId}`);
+  return { error: undefined };
+}
+
+export async function updateFileStatus(projectId: string, fileId: string, status: string) {
+  await prisma.file.update({
+    where: { id: fileId },
+    data: { status }
+  });
+  revalidatePath(`/projects/${projectId}`);
+  return { error: undefined };
+}

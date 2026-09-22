@@ -30,6 +30,7 @@ model Note {
   content   String
   color     String?
   tags      String?  // Comma separated tags for simplicity MVP
+  status    String   @default("Not Started")
   isArchived Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -44,6 +45,7 @@ model Link {
   description String?
   color       String?
   tags        String?
+  status      String   @default("Not Started")
   isArchived  Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -60,6 +62,7 @@ model File {
   description String?
   color       String?
   tags        String?
+  status      String   @default("Not Started")
   isArchived  Boolean  @default(false)
   createdAt   DateTime @default(now())
 }
