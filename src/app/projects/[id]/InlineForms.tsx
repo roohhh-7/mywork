@@ -48,9 +48,14 @@ export function InlineLinkForm({ projectId }: { projectId: string }) {
   const [caption, setCaption] = useState("");
 
   async function handleAdd() {
-    if (!url.trim()) return;
+    let finalUrl = url.trim();
+    if (!finalUrl) return;
+    if (!finalUrl.startsWith('http://') && !finalUrl.startsWith('https://')) {
+      finalUrl = `https://${finalUrl}`;
+    }
+    
     setLoading(true);
-    const res = await addLinkAction(projectId, caption.trim() || url, url, caption);
+    const res = await addLinkAction(projectId, caption.trim() || finalUrl, finalUrl, caption);
     setLoading(false);
     if (res.error) toast.error(res.error);
     else { toast.success("Added"); setUrl(""); setCaption(""); }

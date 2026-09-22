@@ -92,11 +92,21 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
           <TabsContent value="links" className="mt-0 outline-none max-w-3xl space-y-6">
             <InlineLinkForm projectId={project.id} />
             <div className="space-y-3">
-              {project.links.map(link => (
-                <a key={link.id} href={link.url} target="_blank" rel="noreferrer" className="block bg-white border border-zinc-200 rounded-lg p-4 shadow-sm hover:border-zinc-300 transition-colors">
-                  <div className="flex justify-between items-start gap-4">
-                    <div className="flex-1 min-w-0">
-                      <div className="font-medium text-[14px] text-zinc-900 line-clamp-1 break-all mb-1 hover:underline">{new URL(link.url).hostname}</div>
+              {project.links.map(link => {
+                const safeHref = link.url.startsWith('http') ? link.url : `https://${link.url}`;
+                return (
+                  <a key={link.id} href={safeHref} target="_blank" rel="noreferrer" className="block bg-white border border-zinc-200 rounded-lg p-4 shadow-sm hover:border-zinc-300 transition-colors">
+                    <div className="flex justify-between items-start gap-4">
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium text-[14px] text-zinc-900 line-clamp-1 break-all mb-1 hover:underline">
+                          {(() => {
+                            try {
+                              return new URL(safeHref).hostname;
+                            } catch (e) {
+                              return link.url;
+                            }
+                          })()}
+                        </div>
                       {link.description && (
                         <p className="text-[13px] text-zinc-600 line-clamp-2">{link.description}</p>
                       )}
