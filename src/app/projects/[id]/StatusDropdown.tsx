@@ -14,20 +14,24 @@ import { Input } from "@/components/ui/input";
 
 const DEFAULT_STATUSES = ["Not Started", "In Progress", "Complete"];
 
-interface StatusDropdownProps {
-  id: string;
-  projectId: string;
-  currentStatus: string;
-  type: "note" | "link" | "file";
-  updateAction: (projectId: string, id: string, status: string) => Promise<{ error?: string }>;
+export function getStatusColor(status: string) {
+  const s = (status || "").toLowerCase();
+  if (s === "not started") return "bg-zinc-100 text-zinc-600 border-zinc-200 hover:bg-zinc-200 hover:text-zinc-900";
+  if (s === "in progress") return "bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100 hover:text-blue-800";
+  if (s === "complete") return "bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100 hover:text-emerald-800";
+  return "bg-purple-50 text-purple-700 border-purple-200 hover:bg-purple-100 hover:text-purple-800";
 }
 
-export function StatusDropdown({ id, projectId, currentStatus, type, updateAction }: StatusDropdownProps) {
+interface StatusDropdownProps {
+  currentStatus: string;
+  updateAction: (status: string) => Promise<{ error?: string }>;
+}
+
+export function StatusDropdown({ currentStatus, updateAction }: StatusDropdownProps) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [customStatus, setCustomStatus] = useState("");
   const [statuses, setStatuses] = useState(() => {
-    // Include the current status if it's not in the defaults
     if (currentStatus && !DEFAULT_STATUSES.includes(currentStatus)) {
       return [...DEFAULT_STATUSES, currentStatus];
     }
@@ -40,9 +44,9 @@ export function StatusDropdown({ id, projectId, currentStatus, type, updateActio
       return;
     }
     setLoading(true);
-    const res = await updateAction(projectId, id, status);
+    const res = await updateAction(status);
     setLoading(false);
-    if (res.error) {
+    if (res?.error) {
       toast.error(res.error);
     } else {
       setOpen(false);
@@ -67,7 +71,7 @@ export function StatusDropdown({ id, projectId, currentStatus, type, updateActio
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="h-6 px-2 text-[11px] font-medium rounded-full bg-zinc-50 border-zinc-200 text-zinc-600 hover:text-zinc-900 shadow-none"
+            className={cn("h-6 px-2.5 text-[11px] font-medium rounded-full shadow-none", getStatusColor(currentStatus || "Not Started"))}
             disabled={loading}
             onClick={(e) => {
               // Prevent link clicks if inside an anchor tag

@@ -1,8 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import { formatDistanceToNow, format, isToday } from "date-fns";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Plus } from "lucide-react";
 import { AddProgressForm } from "./AddProgressForm";
+import { StatusDropdown } from "@/app/projects/[id]/StatusDropdown";
+import { updateProgressStatus } from "./actions";
 
 export const dynamic = "force-dynamic";
 
@@ -47,17 +48,19 @@ export default async function ProgressPage() {
               </h2>
               <div className="space-y-3 pl-1">
                 {grouped[dateStr].map(item => (
-                  <div key={item.id} className="flex items-start gap-3 group">
-                    <Checkbox checked={item.completed} className="mt-1" />
-                    <div className="flex flex-col gap-1">
-                      <span className={`text-[15px] ${item.completed ? "text-zinc-400 line-through" : "text-zinc-800"}`}>
+                  <div key={item.id} className="flex items-start justify-between gap-4 group bg-white border border-zinc-200 rounded-lg p-4 shadow-sm hover:border-zinc-300 transition-colors">
+                    <div className="flex flex-col gap-1.5 flex-1">
+                      <span className={`text-[14px] ${item.completed ? "text-zinc-500 line-through" : "text-zinc-900 font-medium"}`}>
                         {item.content}
                       </span>
                       {item.project && (
-                        <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-zinc-100 text-zinc-600 w-fit">
-                          {item.project.name}
+                        <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-zinc-100 text-zinc-600 w-fit">
+                          Project: {item.project.name}
                         </span>
                       )}
+                    </div>
+                    <div>
+                      <StatusDropdown currentStatus={item.status} updateAction={updateProgressStatus.bind(null, item.id)} />
                     </div>
                   </div>
                 ))}

@@ -19,3 +19,17 @@ export async function addProgressAction(content: string, projectId?: string) {
   revalidatePath("/progress");
   return { item, error: undefined };
 }
+
+export async function updateProgressStatus(id: string, status: string) {
+  await prisma.progressItem.update({
+    where: { id },
+    data: { 
+      status,
+      // If they set it to Complete, we might want to also check the 'completed' checkbox, but let's keep them independent or sync them.
+      completed: status === "Complete",
+      completedAt: status === "Complete" ? new Date() : null
+    }
+  });
+  revalidatePath("/progress");
+  return { error: undefined };
+}

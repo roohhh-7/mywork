@@ -79,7 +79,7 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
                 <div key={note.id} className="bg-white border border-zinc-200 rounded-lg p-4 shadow-sm hover:border-zinc-300 transition-colors">
                   <div className="flex justify-between items-start gap-4">
                     <p className="text-[14px] text-zinc-800 whitespace-pre-wrap leading-relaxed flex-1">{note.content}</p>
-                    <StatusDropdown id={note.id} projectId={project.id} currentStatus={note.status} type="note" updateAction={updateNoteStatus} />
+                    <StatusDropdown currentStatus={note.status} updateAction={updateNoteStatus.bind(null, project.id, note.id)} />
                   </div>
                   <div className="mt-3 text-[11px] text-zinc-400 font-medium">
                     {formatDistanceToNow(note.updatedAt, { addSuffix: true })}
@@ -115,7 +115,7 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
                       )}
                     </div>
                     <div>
-                      <StatusDropdown id={link.id} projectId={project.id} currentStatus={link.status} type="link" updateAction={updateLinkStatus} />
+                      <StatusDropdown currentStatus={link.status} updateAction={updateLinkStatus.bind(null, project.id, link.id)} />
                     </div>
                   </div>
                   <div className="mt-3 text-[11px] text-zinc-400 font-medium">
@@ -140,7 +140,7 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
                       <span>{formatDistanceToNow(file.createdAt, { addSuffix: true })}</span>
                     </div>
                   </div>
-                  <StatusDropdown id={file.id} projectId={project.id} currentStatus={file.status} type="file" updateAction={updateFileStatus} />
+                  <StatusDropdown currentStatus={file.status} updateAction={updateFileStatus.bind(null, project.id, file.id)} />
                 </div>
               ))}
             </div>
