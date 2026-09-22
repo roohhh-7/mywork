@@ -95,10 +95,13 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
               {project.links.map(link => {
                 const safeHref = link.url.startsWith('http') ? link.url : `https://${link.url}`;
                 return (
-                  <a key={link.id} href={safeHref} target="_blank" rel="noreferrer" className="block bg-white border border-zinc-200 rounded-lg p-4 shadow-sm hover:border-zinc-300 transition-colors">
+                  <div 
+                    key={link.id} 
+                    className="block bg-white border border-zinc-200 rounded-lg p-4 shadow-sm hover:border-zinc-300 transition-colors"
+                  >
                     <div className="flex justify-between items-start gap-4">
                       <div className="flex-1 min-w-0">
-                        <div className="font-medium text-[14px] text-zinc-900 line-clamp-1 break-all mb-1 hover:underline">
+                        <a href={safeHref} target="_blank" rel="noreferrer" className="font-medium text-[14px] text-zinc-900 line-clamp-1 break-all mb-1 hover:underline inline-block">
                           {(() => {
                             try {
                               return new URL(safeHref).hostname;
@@ -106,19 +109,19 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
                               return link.url;
                             }
                           })()}
-                        </div>
+                        </a>
                       {link.description && (
                         <p className="text-[13px] text-zinc-600 line-clamp-2">{link.description}</p>
                       )}
                     </div>
-                    <div onClick={e => e.preventDefault()}>
+                    <div>
                       <StatusDropdown id={link.id} projectId={project.id} currentStatus={link.status} type="link" updateAction={updateLinkStatus} />
                     </div>
                   </div>
                   <div className="mt-3 text-[11px] text-zinc-400 font-medium">
                     {formatDistanceToNow(link.createdAt, { addSuffix: true })}
                   </div>
-                </a>
+                </div>
               );
             })}
             </div>
