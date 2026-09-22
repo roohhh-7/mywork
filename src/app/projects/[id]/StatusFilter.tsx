@@ -15,9 +15,9 @@ export function StatusFilter() {
       <span className="text-sm text-zinc-500 font-medium">Filter:</span>
       <Select 
         value={currentStatus} 
-        onValueChange={(value) => {
+        onValueChange={(value: string | null) => {
           const params = new URLSearchParams(searchParams.toString());
-          if (value === "All") {
+          if (!value || value === "All") {
             params.delete("status");
           } else {
             params.set("status", value);
