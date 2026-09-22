@@ -43,6 +43,7 @@ model Link {
   title       String
   url         String
   description String?
+  imageUrl    String?
   color       String?
   tags        String?
   status      String   @default("Not Started")

@@ -7,7 +7,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { InlineNoteForm, InlineLinkForm, InlineFileForm } from "./InlineForms";
 import { StatusDropdown } from "./StatusDropdown";
 import { StatusFilter } from "./StatusFilter";
-import { updateNoteStatus, updateLinkStatus, updateFileStatus } from "./actions";
+import { 
+  updateNoteStatus, updateLinkStatus, updateFileStatus,
+  deleteNoteAction, deleteLinkAction, deleteFileAction,
+  archiveNoteAction, archiveLinkAction, archiveFileAction,
+  updateNoteAction, updateLinkContentAction 
+} from "./actions";
+import { ResourceOptionsMenu } from "./ResourceOptionsMenu";
 
 export const dynamic = "force-dynamic";
 
@@ -16,7 +22,10 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
   const resolvedSearchParams = await searchParams;
   const statusFilter = resolvedSearchParams.status;
 
-  const whereFilter = statusFilter && statusFilter !== 'All' ? { status: statusFilter } : {};
+  const whereFilter: any = { isArchived: false };
+  if (statusFilter && statusFilter !== 'All') {
+    whereFilter.status = statusFilter;
+  }
 
   const project = await prisma.project.findUnique({
     where: { id: resolvedParams.id },
@@ -79,7 +88,13 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
                 <div key={note.id} className="bg-white border border-zinc-200 rounded-lg p-4 shadow-sm hover:border-zinc-300 transition-colors">
                   <div className="flex justify-between items-start gap-4">
                     <p className="text-[14px] text-zinc-800 whitespace-pre-wrap leading-relaxed flex-1">{note.content}</p>
-                    <StatusDropdown currentStatus={note.status} updateAction={updateNoteStatus.bind(null, project.id, note.id)} />
+                    <div className="flex items-center gap-2">
+                      <StatusDropdown currentStatus={note.status} updateAction={updateNoteStatus.bind(null, project.id, note.id)} />
+                      <ResourceOptionsMenu 
+                        id={note.id} projectId={project.id} type="note" isArchived={note.isArchived} content={note.content}
+                        deleteAction={deleteNoteAction} archiveAction={archiveNoteAction} editNoteAction={updateNoteAction}
+                      />
+                    </div>
                   </div>
                   <div className="mt-3 text-[11px] text-zinc-400 font-medium">
                     {formatDistanceToNow(note.updatedAt, { addSuffix: true })}
@@ -100,6 +115,12 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
                     className="block bg-white border border-zinc-200 rounded-lg p-4 shadow-sm hover:border-zinc-300 transition-colors"
                   >
                     <div className="flex justify-between items-start gap-4">
+                      {link.imageUrl && (
+                        <div className="w-12 h-12 shrink-0 rounded bg-zinc-100 overflow-hidden border border-zinc-200 hidden sm:block">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={link.imageUrl} alt="" className="w-full h-full object-cover" />
+                        </div>
+                      )}
                       <div className="flex-1 min-w-0">
                         <a href={safeHref} target="_blank" rel="noreferrer" className="font-medium text-[14px] text-zinc-900 line-clamp-1 break-all mb-1 hover:underline inline-block">
                           {(() => {
@@ -114,8 +135,12 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
                         <p className="text-[13px] text-zinc-600 line-clamp-2">{link.description}</p>
                       )}
                     </div>
-                    <div>
+                    <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2">
                       <StatusDropdown currentStatus={link.status} updateAction={updateLinkStatus.bind(null, project.id, link.id)} />
+                      <ResourceOptionsMenu 
+                        id={link.id} projectId={project.id} type="link" isArchived={link.isArchived} url={link.url} description={link.description || ""}
+                        deleteAction={deleteLinkAction} archiveAction={archiveLinkAction} editLinkAction={updateLinkContentAction}
+                      />
                     </div>
                   </div>
                   <div className="mt-3 text-[11px] text-zinc-400 font-medium">
@@ -140,7 +165,13 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
                       <span>{formatDistanceToNow(file.createdAt, { addSuffix: true })}</span>
                     </div>
                   </div>
-                  <StatusDropdown currentStatus={file.status} updateAction={updateFileStatus.bind(null, project.id, file.id)} />
+                    <div className="flex items-center gap-2">
+                      <StatusDropdown currentStatus={file.status} updateAction={updateFileStatus.bind(null, project.id, file.id)} />
+                      <ResourceOptionsMenu 
+                        id={file.id} projectId={project.id} type="file" isArchived={file.isArchived}
+                        deleteAction={deleteFileAction} archiveAction={archiveFileAction}
+                      />
+                    </div>
                 </div>
               ))}
             </div>
