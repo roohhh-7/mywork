@@ -119,7 +119,8 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
                     {formatDistanceToNow(link.createdAt, { addSuffix: true })}
                   </div>
                 </a>
-              ))}
+              );
+            })}
             </div>
           </TabsContent>
 
