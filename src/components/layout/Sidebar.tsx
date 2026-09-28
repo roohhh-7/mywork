@@ -8,13 +8,15 @@ import {
   CheckCircle, 
   Archive, 
   Settings,
-  Plus
+  Plus,
+  FileText
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { name: "Home", href: "/", icon: Home },
   { name: "Projects", href: "/projects", icon: FolderKanban },
+  { name: "Notes", href: "/notes", icon: FileText },
   { name: "Progress", href: "/progress", icon: CheckCircle },
   { name: "Archive", href: "/archive", icon: Archive },
 ];

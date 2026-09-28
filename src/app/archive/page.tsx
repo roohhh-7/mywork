@@ -57,7 +57,7 @@ export default async function ArchivePage() {
                       <FileText className="h-5 w-5 text-zinc-400" />
                       <div>
                         <div className="font-medium text-zinc-900">{n.title}</div>
-                        <div className="text-xs text-zinc-500">{n.project.name} &middot; Archived {formatDistanceToNow(n.updatedAt, { addSuffix: true })}</div>
+                        <div className="text-xs text-zinc-500">{n.project ? n.project.name : 'Global'} &middot; Archived {formatDistanceToNow(n.updatedAt, { addSuffix: true })}</div>
                       </div>
                     </div>
                   </div>

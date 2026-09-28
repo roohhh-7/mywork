@@ -2,14 +2,16 @@
 
 import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
-import { StatusDropdown } from "./StatusDropdown";
-import { ResourceOptionsMenu } from "./ResourceOptionsMenu";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RichTextEditor } from "@/components/ui/RichTextEditor";
 import { toast } from "sonner";
-import { updateNoteAction, updateNoteStatus, deleteNoteAction, archiveNoteAction } from "./actions";
+import { updateGlobalNoteAction, updateGlobalNoteStatus, deleteGlobalNoteAction, archiveGlobalNoteAction } from "./actions";
+
+// Reusable components
+import { StatusDropdown } from "@/app/projects/[id]/StatusDropdown";
+import { ResourceOptionsMenu } from "@/app/projects/[id]/ResourceOptionsMenu";
 
 interface Note {
   id: string;
@@ -21,7 +23,7 @@ interface Note {
   updatedAt: Date;
 }
 
-export function NoteCard({ note, projectId }: { note: Note, projectId: string }) {
+export function GlobalNoteCard({ note }: { note: Note }) {
   const [editOpen, setEditOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState(note.title);
@@ -29,7 +31,7 @@ export function NoteCard({ note, projectId }: { note: Note, projectId: string })
 
   async function handleSave() {
     setLoading(true);
-    const res = await updateNoteAction(projectId, note.id, { title, content });
+    const res = await updateGlobalNoteAction(note.id, { title, content });
     setLoading(false);
     if (res.error) toast.error(res.error);
     else {
@@ -57,11 +59,20 @@ export function NoteCard({ note, projectId }: { note: Note, projectId: string })
         </div>
         
         <div className="mt-4 pt-4 border-t border-zinc-100 flex items-center justify-between z-10" onClick={e => e.stopPropagation()}>
-          <StatusDropdown currentStatus={note.status} updateAction={updateNoteStatus.bind(null, projectId, note.id)} />
+          <StatusDropdown 
+            currentStatus={note.status} 
+            updateAction={(status) => updateGlobalNoteStatus(note.id, status)} 
+          />
           <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
             <ResourceOptionsMenu 
-              id={note.id} projectId={projectId} type="note" isArchived={note.isArchived} content={note.content} title={note.title}
-              deleteAction={deleteNoteAction} archiveAction={archiveNoteAction}
+              id={note.id} 
+              projectId="global" // dummy since we map actions manually
+              type="note" 
+              isArchived={note.isArchived} 
+              content={note.content} 
+              title={note.title}
+              deleteAction={() => deleteGlobalNoteAction(note.id)} 
+              archiveAction={(pid, id, isArchived) => archiveGlobalNoteAction(note.id, isArchived)}
             />
           </div>
         </div>
