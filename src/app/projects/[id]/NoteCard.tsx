@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
-import { StatusDropdown } from "./StatusDropdown";
 import { ResourceOptionsMenu } from "./ResourceOptionsMenu";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RichTextEditor } from "@/components/ui/RichTextEditor";
 import { toast } from "sonner";
-import { updateNoteAction, updateNoteStatus, deleteNoteAction, archiveNoteAction } from "./actions";
+import { updateNoteAction, deleteNoteAction, archiveNoteAction } from "./actions";
 
 interface Note {
   id: string;
@@ -57,7 +56,9 @@ export function NoteCard({ note, projectId }: { note: Note, projectId: string })
         </div>
         
         <div className="mt-4 pt-4 border-t border-zinc-100 flex items-center justify-between z-10" onClick={e => e.stopPropagation()}>
-          <StatusDropdown currentStatus={note.status} updateAction={updateNoteStatus.bind(null, projectId, note.id)} />
+          <span className="text-[12px] text-zinc-400 font-medium">
+            {formatDistanceToNow(new Date(note.updatedAt), { addSuffix: true })}
+          </span>
           <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
             <ResourceOptionsMenu 
               id={note.id} projectId={projectId} type="note" isArchived={note.isArchived} content={note.content} title={note.title}

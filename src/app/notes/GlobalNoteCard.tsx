@@ -7,10 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RichTextEditor } from "@/components/ui/RichTextEditor";
 import { toast } from "sonner";
-import { updateGlobalNoteAction, updateGlobalNoteStatus, deleteGlobalNoteAction, archiveGlobalNoteAction } from "./actions";
+import { updateGlobalNoteAction, deleteGlobalNoteAction, archiveGlobalNoteAction } from "./actions";
 
 // Reusable components
-import { StatusDropdown } from "@/app/projects/[id]/StatusDropdown";
 import { ResourceOptionsMenu } from "@/app/projects/[id]/ResourceOptionsMenu";
 
 interface Note {
@@ -59,10 +58,9 @@ export function GlobalNoteCard({ note }: { note: Note }) {
         </div>
         
         <div className="mt-4 pt-4 border-t border-zinc-100 flex items-center justify-between z-10" onClick={e => e.stopPropagation()}>
-          <StatusDropdown 
-            currentStatus={note.status} 
-            updateAction={(status) => updateGlobalNoteStatus(note.id, status)} 
-          />
+          <span className="text-[12px] text-zinc-400 font-medium">
+            {formatDistanceToNow(new Date(note.updatedAt), { addSuffix: true })}
+          </span>
           <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
             <ResourceOptionsMenu 
               id={note.id} 
