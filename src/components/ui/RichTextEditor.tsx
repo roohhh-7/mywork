@@ -64,55 +64,55 @@ export function RichTextEditor({ content, onChange }: { content: string, onChang
   }
 
   return (
-    <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden bg-white dark:bg-zinc-950 shadow-sm flex flex-col h-full">
-      <div className="bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 p-2 flex flex-wrap gap-1 items-center sticky top-0 z-10">
+    <div className="border border-zinc-200 dark:border-white/[0.08] rounded-lg overflow-hidden bg-white dark:bg-white/[0.02] shadow-sm flex flex-col h-full">
+      <div className="bg-zinc-50 dark:bg-[#09090b] border-b border-zinc-200 dark:border-white/[0.08] p-2 flex flex-wrap gap-1 items-center sticky top-0 z-10">
         <Button
           variant="ghost" size="icon"
           onClick={() => editor.chain().focus().toggleBold().run()}
-          className={cn("h-8 w-8 dark:text-zinc-300", editor.isActive('bold') && "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-50")}
+          className={cn("h-8 w-8 dark:text-zinc-300", editor.isActive('bold') && "bg-zinc-200 text-zinc-900 dark:bg-white/[0.1] dark:text-zinc-50")}
         >
           <Bold className="h-4 w-4" />
         </Button>
         <Button
           variant="ghost" size="icon"
           onClick={() => editor.chain().focus().toggleItalic().run()}
-          className={cn("h-8 w-8 dark:text-zinc-300", editor.isActive('italic') && "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-50")}
+          className={cn("h-8 w-8 dark:text-zinc-300", editor.isActive('italic') && "bg-zinc-200 text-zinc-900 dark:bg-white/[0.1] dark:text-zinc-50")}
         >
           <Italic className="h-4 w-4" />
         </Button>
 
-        <div className="w-px h-6 bg-zinc-300 dark:bg-zinc-700 mx-1" />
+        <div className="w-px h-6 bg-zinc-300 dark:bg-white/[0.1] mx-1" />
 
         <Button
           variant="ghost" size="icon"
           onClick={() => editor.chain().focus().setParagraph().run()}
-          className={cn("h-8 w-8 font-serif text-sm font-medium dark:text-zinc-300", editor.isActive('paragraph') && "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-50")}
+          className={cn("h-8 w-8 font-serif text-sm font-medium dark:text-zinc-300", editor.isActive('paragraph') && "bg-zinc-200 text-zinc-900 dark:bg-white/[0.1] dark:text-zinc-50")}
         >
           P
         </Button>
         <Button
           variant="ghost" size="icon"
           onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-          className={cn("h-8 w-8 dark:text-zinc-300", editor.isActive('heading', { level: 1 }) && "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-50")}
+          className={cn("h-8 w-8 dark:text-zinc-300", editor.isActive('heading', { level: 1 }) && "bg-zinc-200 text-zinc-900 dark:bg-white/[0.1] dark:text-zinc-50")}
         >
           <Heading1 className="h-4 w-4" />
         </Button>
         <Button
           variant="ghost" size="icon"
           onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-          className={cn("h-8 w-8 dark:text-zinc-300", editor.isActive('heading', { level: 2 }) && "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-50")}
+          className={cn("h-8 w-8 dark:text-zinc-300", editor.isActive('heading', { level: 2 }) && "bg-zinc-200 text-zinc-900 dark:bg-white/[0.1] dark:text-zinc-50")}
         >
           <Heading2 className="h-4 w-4" />
         </Button>
         <Button
           variant="ghost" size="icon"
           onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-          className={cn("h-8 w-8 dark:text-zinc-300", editor.isActive('heading', { level: 3 }) && "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-50")}
+          className={cn("h-8 w-8 dark:text-zinc-300", editor.isActive('heading', { level: 3 }) && "bg-zinc-200 text-zinc-900 dark:bg-white/[0.1] dark:text-zinc-50")}
         >
           <Heading3 className="h-4 w-4" />
         </Button>
         
-        <div className="w-px h-6 bg-zinc-300 dark:bg-zinc-700 mx-1" />
+        <div className="w-px h-6 bg-zinc-300 dark:bg-white/[0.1] mx-1" />
 
         {COLORS.map(color => (
           <Button
@@ -131,13 +131,13 @@ export function RichTextEditor({ content, onChange }: { content: string, onChang
         <Button
           variant="ghost" size="icon"
           onClick={() => editor.chain().focus().unsetHighlight().run()}
-          className={cn("h-7 w-7 ml-1 dark:text-zinc-300", !editor.isActive('highlight') && "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-50")}
+          className={cn("h-7 w-7 ml-1 dark:text-zinc-300", !editor.isActive('highlight') && "bg-zinc-200 text-zinc-900 dark:bg-white/[0.1] dark:text-zinc-50")}
           title="Clear Highlight"
         >
           <Highlighter className="h-4 w-4" />
         </Button>
 
-        <div className="w-px h-6 bg-zinc-300 dark:bg-zinc-700 mx-1" />
+        <div className="w-px h-6 bg-zinc-300 dark:bg-white/[0.1] mx-1" />
 
         <Button
           variant="ghost" size="icon"

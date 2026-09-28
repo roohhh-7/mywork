@@ -33,7 +33,7 @@ export default async function ArchivePage() {
               <h2 className="text-lg font-medium mb-4 text-zinc-900 dark:text-zinc-100">Projects</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {projects.map(p => (
-                  <div key={p.id} className="border dark:border-zinc-800 rounded-xl p-4 flex items-center justify-between bg-zinc-50 dark:bg-zinc-900 opacity-75">
+                  <div key={p.id} className="border dark:border-white/[0.08] rounded-xl p-4 flex items-center justify-between bg-zinc-50 dark:bg-white/[0.02] opacity-75 hover:opacity-100 transition-opacity">
                     <div className="flex items-center gap-3">
                       <FolderKanban className="h-5 w-5 text-zinc-400" />
                       <div>
@@ -52,7 +52,7 @@ export default async function ArchivePage() {
               <h2 className="text-lg font-medium mb-4 text-zinc-900 dark:text-zinc-100">Notes</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {notes.map(n => (
-                  <div key={n.id} className="border dark:border-zinc-800 rounded-xl p-4 flex items-center justify-between bg-zinc-50 dark:bg-zinc-900 opacity-75">
+                  <div key={n.id} className="border dark:border-white/[0.08] rounded-xl p-4 flex items-center justify-between bg-zinc-50 dark:bg-white/[0.02] opacity-75 hover:opacity-100 transition-opacity">
                     <div className="flex items-center gap-3">
                       <FileText className="h-5 w-5 text-zinc-400" />
                       <div>
@@ -71,7 +71,7 @@ export default async function ArchivePage() {
               <h2 className="text-lg font-medium mb-4 text-zinc-900 dark:text-zinc-100">Links</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {links.map(l => (
-                  <div key={l.id} className="border dark:border-zinc-800 rounded-xl p-4 flex items-center justify-between bg-zinc-50 dark:bg-zinc-900 opacity-75">
+                  <div key={l.id} className="border dark:border-white/[0.08] rounded-xl p-4 flex items-center justify-between bg-zinc-50 dark:bg-white/[0.02] opacity-75 hover:opacity-100 transition-opacity">
                     <div className="flex items-center gap-3">
                       <LinkIcon className="h-5 w-5 text-zinc-400" />
                       <div>
@@ -90,7 +90,7 @@ export default async function ArchivePage() {
               <h2 className="text-lg font-medium mb-4 text-zinc-900 dark:text-zinc-100">Files</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {files.map(f => (
-                  <div key={f.id} className="border dark:border-zinc-800 rounded-xl p-4 flex items-center justify-between bg-zinc-50 dark:bg-zinc-900 opacity-75">
+                  <div key={f.id} className="border dark:border-white/[0.08] rounded-xl p-4 flex items-center justify-between bg-zinc-50 dark:bg-white/[0.02] opacity-75 hover:opacity-100 transition-opacity">
                     <div className="flex items-center gap-3">
                       <File className="h-5 w-5 text-zinc-400" />
                       <div>

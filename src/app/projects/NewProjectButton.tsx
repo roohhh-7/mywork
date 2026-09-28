@@ -39,18 +39,18 @@ export function NewProjectButton() {
         <Plus className="h-4 w-4" />
         Create Project
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] dark:bg-[#09090b] dark:border-white/[0.08] shadow-2xl">
         <DialogHeader>
           <DialogTitle>New Project</DialogTitle>
         </DialogHeader>
         <form onSubmit={onSubmit} className="space-y-4 mt-4">
           <div className="space-y-2">
             <label htmlFor="name" className="text-sm font-medium">Name</label>
-            <Input id="name" name="name" placeholder="e.g. Intent Terminal" required autoFocus />
+            <Input id="name" name="name" placeholder="e.g. Intent Terminal" required autoFocus className="dark:bg-white/[0.02] dark:border-white/[0.08] dark:focus-visible:ring-white/[0.2] dark:text-zinc-100" />
           </div>
           <div className="space-y-2">
             <label htmlFor="description" className="text-sm font-medium">Description</label>
-            <Textarea id="description" name="description" placeholder="Short description..." className="resize-none" rows={3} />
+            <Textarea id="description" name="description" placeholder="Short description..." className="resize-none dark:bg-white/[0.02] dark:border-white/[0.08] dark:focus-visible:ring-white/[0.2] dark:text-zinc-100" rows={3} />
           </div>
           <div className="space-y-2">
             <label htmlFor="color" className="text-sm font-medium">Accent Color (optional)</label>

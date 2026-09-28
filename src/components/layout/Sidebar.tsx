@@ -26,7 +26,7 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex h-full w-64 flex-col border-r border-border bg-gray-50/50 dark:bg-zinc-950">
+    <div className="flex h-full w-64 flex-col border-r border-zinc-200 dark:border-white/[0.08] bg-gray-50/50 dark:bg-white/[0.02]">
       <div className="flex h-14 items-center px-6 py-4">
         <Link href="/" className="flex items-center gap-2 font-semibold">
           <span className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">mywork</span>
@@ -57,8 +57,8 @@ export function Sidebar() {
               className={cn(
                 "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
                 isActive
-                  ? "bg-gray-200/50 text-gray-900 dark:bg-zinc-800/50 dark:text-zinc-50"
-                  : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-50"
+                  ? "bg-gray-200/50 text-gray-900 dark:bg-white/[0.08] dark:text-zinc-50"
+                  : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-zinc-400 dark:hover:bg-white/[0.04] dark:hover:text-zinc-50"
               )}
             >
               <item.icon className="h-4 w-4" />
@@ -74,8 +74,8 @@ export function Sidebar() {
           className={cn(
             "flex-1 flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
             pathname === "/settings"
-              ? "bg-gray-200/50 text-gray-900 dark:bg-zinc-800/50 dark:text-zinc-50"
-              : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-50"
+              ? "bg-gray-200/50 text-gray-900 dark:bg-white/[0.08] dark:text-zinc-50"
+              : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-zinc-400 dark:hover:bg-white/[0.04] dark:hover:text-zinc-50"
           )}
         >
           <Settings className="h-4 w-4" />

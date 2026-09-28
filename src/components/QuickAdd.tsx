@@ -24,22 +24,22 @@ export function QuickAdd() {
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="p-0 overflow-hidden sm:max-w-[500px]">
+        <DialogContent className="p-0 overflow-hidden sm:max-w-[500px] border dark:border-white/[0.08] dark:bg-[#09090b] shadow-2xl">
           <DialogTitle className="sr-only">Quick Add</DialogTitle>
-          <Command className="flex w-full flex-col bg-white dark:bg-zinc-950">
+          <Command className="flex w-full flex-col bg-white dark:bg-transparent">
             <Command.Input 
               placeholder="What do you want to add?" 
               className="w-full border-none px-4 py-4 outline-none text-sm bg-transparent dark:text-zinc-100 placeholder:text-zinc-500"
               autoFocus
             />
-            <Command.List className="max-h-[300px] overflow-y-auto p-2 border-t dark:border-zinc-800">
+            <Command.List className="max-h-[300px] overflow-y-auto p-2 border-t dark:border-white/[0.08]">
               <Command.Empty className="py-6 text-center text-sm text-zinc-500">
                 No results found.
               </Command.Empty>
 
               <Command.Group heading="Create New" className="text-xs font-medium text-zinc-500 p-2">
                 <Command.Item 
-                  className="flex items-center gap-2 rounded-md px-2 py-2 text-sm text-zinc-900 dark:text-zinc-100 aria-selected:bg-zinc-100 dark:aria-selected:bg-zinc-800 cursor-pointer mt-1"
+                  className="flex items-center gap-2 rounded-md px-2 py-2 text-sm text-zinc-900 dark:text-zinc-100 aria-selected:bg-zinc-100 dark:aria-selected:bg-white/[0.05] cursor-pointer mt-1"
                   onSelect={() => {
                     setOpen(false);
                     // trigger note creation (could use query param or another dialog)
@@ -49,21 +49,21 @@ export function QuickAdd() {
                   Note
                 </Command.Item>
                 <Command.Item 
-                  className="flex items-center gap-2 rounded-md px-2 py-2 text-sm text-zinc-900 dark:text-zinc-100 aria-selected:bg-zinc-100 dark:aria-selected:bg-zinc-800 cursor-pointer mt-1"
+                  className="flex items-center gap-2 rounded-md px-2 py-2 text-sm text-zinc-900 dark:text-zinc-100 aria-selected:bg-zinc-100 dark:aria-selected:bg-white/[0.05] cursor-pointer mt-1"
                   onSelect={() => setOpen(false)}
                 >
                   <Link className="h-4 w-4 text-zinc-400" />
                   Link
                 </Command.Item>
                 <Command.Item 
-                  className="flex items-center gap-2 rounded-md px-2 py-2 text-sm text-zinc-900 dark:text-zinc-100 aria-selected:bg-zinc-100 dark:aria-selected:bg-zinc-800 cursor-pointer mt-1"
+                  className="flex items-center gap-2 rounded-md px-2 py-2 text-sm text-zinc-900 dark:text-zinc-100 aria-selected:bg-zinc-100 dark:aria-selected:bg-white/[0.05] cursor-pointer mt-1"
                   onSelect={() => setOpen(false)}
                 >
                   <File className="h-4 w-4 text-zinc-400" />
                   File
                 </Command.Item>
                 <Command.Item 
-                  className="flex items-center gap-2 rounded-md px-2 py-2 text-sm text-zinc-900 dark:text-zinc-100 aria-selected:bg-zinc-100 dark:aria-selected:bg-zinc-800 cursor-pointer mt-1"
+                  className="flex items-center gap-2 rounded-md px-2 py-2 text-sm text-zinc-900 dark:text-zinc-100 aria-selected:bg-zinc-100 dark:aria-selected:bg-white/[0.05] cursor-pointer mt-1"
                   onSelect={() => {
                     setOpen(false);
                     router.push("/progress");
@@ -73,7 +73,7 @@ export function QuickAdd() {
                   Progress
                 </Command.Item>
                 <Command.Item 
-                  className="flex items-center gap-2 rounded-md px-2 py-2 text-sm text-zinc-900 dark:text-zinc-100 aria-selected:bg-zinc-100 dark:aria-selected:bg-zinc-800 cursor-pointer mt-1"
+                  className="flex items-center gap-2 rounded-md px-2 py-2 text-sm text-zinc-900 dark:text-zinc-100 aria-selected:bg-zinc-100 dark:aria-selected:bg-white/[0.05] cursor-pointer mt-1"
                   onSelect={() => {
                     setOpen(false);
                     router.push("/projects");

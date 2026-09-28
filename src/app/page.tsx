@@ -42,7 +42,7 @@ export default async function Home() {
               const resourcesCount = project._count.notes + project._count.links + project._count.files;
               return (
                 <Link key={project.id} href={`/projects/${project.id}`}>
-                  <div className="group rounded-xl border dark:border-zinc-800 bg-white dark:bg-zinc-950 p-5 shadow-sm transition-all hover:shadow-md hover:border-zinc-300 dark:hover:border-zinc-700 relative overflow-hidden">
+                  <div className="group rounded-xl border border-zinc-200 dark:border-white/[0.08] bg-white dark:bg-white/[0.02] p-5 shadow-sm dark:shadow-none transition-all hover:shadow-md hover:border-zinc-300 dark:hover:border-white/[0.15] dark:hover:bg-white/[0.04] relative overflow-hidden">
                     {project.color && (
                       <div className="absolute left-0 top-0 bottom-0 w-1" style={{ backgroundColor: project.color }} />
                     )}
@@ -74,7 +74,7 @@ export default async function Home() {
             <div className="text-sm text-zinc-500 dark:text-zinc-400">No recent progress. Add something you accomplished!</div>
           ) : (
             recentProgress.map(item => (
-              <div key={item.id} className="flex items-start gap-3">
+              <div key={item.id} className="flex items-start gap-3 p-2 -mx-2 rounded-lg hover:bg-zinc-50 dark:hover:bg-white/[0.02] transition-colors">
                 <Checkbox checked={item.completed} className="mt-1" />
                 <span className={`text-sm ${item.completed ? "text-zinc-400 line-through" : "text-zinc-800 dark:text-zinc-200"}`}>
                   {item.content}

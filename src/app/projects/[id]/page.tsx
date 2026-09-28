@@ -101,11 +101,11 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
                 return (
                   <div 
                     key={link.id} 
-                    className="block bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 shadow-sm hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors"
+                    className="block bg-white dark:bg-white/[0.02] border border-zinc-200 dark:border-white/[0.08] rounded-lg p-4 shadow-sm dark:shadow-none hover:border-zinc-300 dark:hover:border-white/[0.15] dark:hover:bg-white/[0.04] transition-all"
                   >
                     <div className="flex justify-between items-start gap-4">
                       {link.imageUrl && (
-                        <div className="w-12 h-12 shrink-0 rounded bg-zinc-100 dark:bg-zinc-900 overflow-hidden border border-zinc-200 dark:border-zinc-800 hidden sm:block">
+                        <div className="w-12 h-12 shrink-0 rounded bg-zinc-100 dark:bg-white/[0.05] overflow-hidden border border-zinc-200 dark:border-white/[0.05] hidden sm:block">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img src={link.imageUrl} alt="" className="w-full h-full object-cover" />
                         </div>
@@ -145,7 +145,7 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
             <InlineFileForm projectId={project.id} />
             <div className="space-y-3">
               {project.files.map(file => (
-                <div key={file.id} className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 shadow-sm flex items-center justify-between hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors">
+                <div key={file.id} className="bg-white dark:bg-white/[0.02] border border-zinc-200 dark:border-white/[0.08] rounded-lg p-4 shadow-sm dark:shadow-none flex items-center justify-between hover:border-zinc-300 dark:hover:border-white/[0.15] dark:hover:bg-white/[0.04] transition-all">
                   <div className="min-w-0 flex-1">
                     <div className="font-medium text-[14px] text-zinc-900 dark:text-zinc-100 truncate">{file.name}</div>
                     <div className="mt-1 text-[11px] text-zinc-400 font-medium flex items-center gap-2">

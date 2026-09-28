@@ -36,7 +36,7 @@ export function AddProgressForm() {
         value={content}
         onChange={e => setContent(e.target.value)}
         placeholder="What did you accomplish?"
-        className="pl-10 h-12 bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 focus-visible:ring-1 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-100 dark:placeholder:text-zinc-500 dark:text-zinc-100"
+        className="pl-10 h-12 bg-zinc-50 dark:bg-white/[0.02] border-zinc-200 dark:border-white/[0.08] focus-visible:ring-1 focus-visible:ring-zinc-900 dark:focus-visible:ring-white/[0.2] dark:placeholder:text-zinc-500 dark:text-zinc-100"
         disabled={loading}
       />
       <Button type="submit" disabled={!content.trim() || loading} className="h-12 px-6 bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200">

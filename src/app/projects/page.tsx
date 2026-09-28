@@ -28,13 +28,13 @@ export default async function ProjectsPage() {
           const resourcesCount = project._count.notes + project._count.links + project._count.files;
           return (
             <Link key={project.id} href={`/projects/${project.id}`}>
-              <div className="group rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-5 shadow-sm transition-all hover:shadow-md hover:border-zinc-300 dark:hover:border-zinc-700 relative overflow-hidden h-full flex flex-col">
+              <div className="group rounded-xl border border-zinc-200 dark:border-white/[0.08] bg-white dark:bg-white/[0.02] p-5 shadow-sm dark:shadow-none transition-all hover:shadow-md hover:border-zinc-300 dark:hover:border-white/[0.15] dark:hover:bg-white/[0.04] relative overflow-hidden h-full flex flex-col">
                 {project.color && (
                   <div className="absolute left-0 top-0 bottom-0 w-1" style={{ backgroundColor: project.color }} />
                 )}
                 <div className="flex items-start justify-between mb-2">
                   <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 leading-tight">{project.name}</h3>
-                  <span className="text-[10px] font-medium uppercase tracking-wider text-zinc-500 bg-zinc-100 dark:bg-zinc-900 px-2 py-0.5 rounded-full">
+                  <span className="text-[10px] font-medium uppercase tracking-wider text-zinc-500 bg-zinc-100 dark:bg-white/[0.08] px-2 py-0.5 rounded-full">
                     {project.status}
                   </span>
                 </div>
