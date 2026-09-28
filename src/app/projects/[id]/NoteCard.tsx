@@ -44,19 +44,19 @@ export function NoteCard({ note, projectId }: { note: Note, projectId: string })
     <>
       <div 
         onClick={() => setEditOpen(true)}
-        className="bg-zinc-900/20 border border-zinc-800/50 hover:border-zinc-700/50 rounded-2xl p-5 transition-all cursor-pointer aspect-[4/3] flex flex-col group relative"
+        className="bg-white border border-zinc-200 rounded-lg p-4 shadow-sm hover:border-zinc-300 transition-colors cursor-pointer aspect-square flex flex-col group relative"
       >
         <div className="flex-1 min-h-0 overflow-hidden relative">
-          <h3 className="font-bold text-zinc-100 text-[15px] mb-2 line-clamp-2 leading-snug pr-6">{note.title}</h3>
-          <p className="text-[13px] text-zinc-400 leading-relaxed break-words overflow-hidden text-ellipsis line-clamp-[4]">
+          <h3 className="font-semibold text-zinc-900 text-[15px] mb-2 line-clamp-2 leading-snug pr-6">{note.title}</h3>
+          <p className="text-[13px] text-zinc-500 leading-relaxed break-words overflow-hidden text-ellipsis line-clamp-[6] opacity-80">
             {previewText || "Empty note..."}
           </p>
           {/* fade out bottom of text */}
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#0a0a0a] to-transparent pointer-events-none opacity-50" />
+          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent" />
         </div>
         
-        <div className="mt-4 pt-4 border-t border-zinc-800/50 flex items-center justify-between z-10" onClick={e => e.stopPropagation()}>
-          <span className="text-[11px] text-zinc-500 font-medium">
+        <div className="mt-4 pt-4 border-t border-zinc-100 flex items-center justify-between z-10" onClick={e => e.stopPropagation()}>
+          <span className="text-[12px] text-zinc-400 font-medium">
             {formatDistanceToNow(new Date(note.updatedAt), { addSuffix: true })}
           </span>
           <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -69,24 +69,24 @@ export function NoteCard({ note, projectId }: { note: Note, projectId: string })
       </div>
 
       <Dialog open={editOpen} onOpenChange={setEditOpen}>
-        <DialogContent className="sm:max-w-4xl w-[95vw] h-[90vh] p-0 flex flex-col gap-0 border-border bg-muted/30 shadow-2xl">
-          <DialogHeader className="p-4 border-b border-border bg-card">
+        <DialogContent className="sm:max-w-4xl w-[95vw] h-[90vh] p-0 flex flex-col gap-0 bg-zinc-50/50">
+          <DialogHeader className="p-4 border-b border-zinc-200 bg-white">
             <DialogTitle className="sr-only">Edit Note</DialogTitle>
             <Input 
               value={title} 
               onChange={e => setTitle(e.target.value)}
-              className="text-xl font-bold h-12 shadow-none border-transparent focus-visible:ring-0 bg-transparent px-2 placeholder:text-muted-foreground/50 text-foreground"
+              className="text-xl font-bold h-12 shadow-none border-transparent focus-visible:ring-0 bg-transparent px-2 placeholder:text-zinc-300"
               placeholder="Note title..."
             />
           </DialogHeader>
           
-          <div className="flex-1 overflow-hidden p-4 md:p-6 bg-muted/30">
+          <div className="flex-1 overflow-hidden p-4 md:p-6 bg-zinc-50/50">
             <RichTextEditor content={content} onChange={setContent} />
           </div>
 
-          <DialogFooter className="p-4 border-t border-border bg-card">
+          <DialogFooter className="p-4 border-t border-zinc-200 bg-white">
             <Button variant="outline" size="sm" onClick={() => setEditOpen(false)} className="h-8">Cancel</Button>
-            <Button size="sm" onClick={handleSave} disabled={loading} className="h-8 bg-primary text-primary-foreground hover:bg-primary/90">Save Note</Button>
+            <Button size="sm" onClick={handleSave} disabled={loading} className="h-8 bg-zinc-900">Save Note</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

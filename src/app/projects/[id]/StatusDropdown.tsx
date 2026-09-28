@@ -16,10 +16,10 @@ const DEFAULT_STATUSES = ["Not Started", "In Progress", "Complete"];
 
 export function getStatusColor(status: string) {
   const s = (status || "").toLowerCase();
-  if (s === "not started") return "bg-muted text-muted-foreground border-border hover:bg-muted/80 hover:text-foreground";
-  if (s === "in progress") return "bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100 hover:text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-900/50 dark:hover:bg-blue-900/50 dark:hover:text-blue-300";
-  if (s === "complete") return "bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100 hover:text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400 dark:border-emerald-900/50 dark:hover:bg-emerald-900/50 dark:hover:text-emerald-300";
-  return "bg-purple-50 text-purple-700 border-purple-200 hover:bg-purple-100 hover:text-purple-800 dark:bg-purple-900/30 dark:text-purple-400 dark:border-purple-900/50 dark:hover:bg-purple-900/50 dark:hover:text-purple-300";
+  if (s === "not started") return "bg-zinc-100 text-zinc-600 border-zinc-200 hover:bg-zinc-200 hover:text-zinc-900";
+  if (s === "in progress") return "bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100 hover:text-blue-800";
+  if (s === "complete") return "bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100 hover:text-emerald-800";
+  return "bg-purple-50 text-purple-700 border-purple-200 hover:bg-purple-100 hover:text-purple-800";
 }
 
 interface StatusDropdownProps {
@@ -83,7 +83,7 @@ export function StatusDropdown({ currentStatus, updateAction }: StatusDropdownPr
         {currentStatus || "Not Started"}
         <ChevronsUpDown className="ml-1 h-3 w-3 shrink-0 opacity-50" />
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-2 shadow-sm border-border bg-popover" align="start"
+      <PopoverContent className="w-[200px] p-2 shadow-sm border-zinc-200" align="start"
         onClick={(e) => e.preventDefault()} // Prevent link clicks
       >
         <div className="space-y-1 mb-2">
@@ -92,8 +92,8 @@ export function StatusDropdown({ currentStatus, updateAction }: StatusDropdownPr
               key={status}
               onClick={() => handleSelect(status)}
               className={cn(
-                "relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-xs outline-none hover:bg-accent hover:text-accent-foreground transition-colors",
-                currentStatus === status ? "font-medium text-foreground bg-accent/50" : "text-muted-foreground"
+                "relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-xs outline-none hover:bg-zinc-100 transition-colors",
+                currentStatus === status ? "font-medium text-zinc-900 bg-zinc-50" : "text-zinc-700"
               )}
             >
               <Check
@@ -106,9 +106,9 @@ export function StatusDropdown({ currentStatus, updateAction }: StatusDropdownPr
             </div>
           ))}
         </div>
-        <div className="flex items-center border-t border-border pt-2 mt-2">
+        <div className="flex items-center border-t pt-2 mt-2">
           <Input
-            className="h-7 text-xs shadow-none border-border rounded-sm bg-background"
+            className="h-7 text-xs shadow-none border-zinc-200 rounded-sm focus-visible:ring-1 focus-visible:ring-zinc-900"
             placeholder="Custom status..."
             value={customStatus}
             onChange={(e) => setCustomStatus(e.target.value)}

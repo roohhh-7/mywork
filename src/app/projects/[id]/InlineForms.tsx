@@ -16,34 +16,29 @@ export function InlineNoteForm({ projectId }: { projectId: string }) {
     if (!title.trim()) return;
     setLoading(true);
     // Content can be empty string for now, user will open it to edit
-    const res = await addNoteAction(projectId, title.trim(), "");
+    const res = await addNoteAction(projectId, title.trim(), "<p>Start typing...</p>");
     setLoading(false);
     if (res.error) toast.error(res.error);
     else { toast.success("Added"); setTitle(""); }
   }
 
   return (
-    <div className="flex flex-col sm:flex-row gap-3">
-      <div className="relative flex-1">
-        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
-        </div>
-        <Input 
-          placeholder="New note..." 
-          className="w-full pl-10 bg-zinc-900/50 border-zinc-800 text-sm h-11 text-zinc-100 placeholder:text-zinc-500 rounded-xl focus-visible:ring-1 focus-visible:ring-zinc-700 shadow-none"
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-          onKeyDown={e => {
-            if (e.key === 'Enter') {
-              e.preventDefault();
-              handleAdd();
-            }
-          }}
-          disabled={loading}
-        />
-      </div>
-      <Button size="sm" onClick={handleAdd} disabled={!title.trim() || loading} className="bg-red-500 text-white hover:bg-red-600 font-medium h-11 px-6 rounded-xl shadow-none whitespace-nowrap">
-        Create <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    <div className="flex flex-col sm:flex-row gap-2">
+      <Input 
+        placeholder="New note headline..." 
+        className="flex-1 bg-white border-zinc-200 text-sm focus-visible:ring-1 focus-visible:ring-zinc-900 shadow-sm h-9"
+        value={title}
+        onChange={e => setTitle(e.target.value)}
+        onKeyDown={e => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            handleAdd();
+          }
+        }}
+        disabled={loading}
+      />
+      <Button size="sm" onClick={handleAdd} disabled={!title.trim() || loading} className="bg-zinc-900 text-white font-sans h-9 px-4 text-xs shadow-none whitespace-nowrap">
+        Create Note
       </Button>
     </div>
   );
@@ -69,23 +64,23 @@ export function InlineLinkForm({ projectId }: { projectId: string }) {
   }
 
   return (
-    <div className="flex flex-col gap-3 p-4 bg-card border border-border rounded-lg shadow-sm">
+    <div className="flex flex-col gap-3 p-4 bg-white border border-zinc-200 rounded-lg shadow-sm">
       <Input 
         placeholder="https://..." 
         value={url}
         onChange={e => setUrl(e.target.value)}
         disabled={loading}
-        className="bg-background border-border h-9 text-foreground placeholder:text-muted-foreground"
+        className="bg-white border-zinc-200 focus-visible:ring-1 focus-visible:ring-zinc-900 h-9"
       />
       <Input 
         placeholder="Caption or note about this link..." 
         value={caption}
         onChange={e => setCaption(e.target.value)}
         disabled={loading}
-        className="bg-background border-border h-9 text-foreground placeholder:text-muted-foreground"
+        className="bg-white border-zinc-200 focus-visible:ring-1 focus-visible:ring-zinc-900 h-9"
       />
       <div className="flex justify-end mt-1">
-        <Button size="sm" onClick={handleAdd} disabled={!url.trim() || loading} className="bg-primary text-primary-foreground hover:bg-primary/90 font-sans h-8 px-3 text-xs shadow-none">Add Link</Button>
+        <Button size="sm" onClick={handleAdd} disabled={!url.trim() || loading} className="bg-zinc-900 text-white font-sans h-8 px-3 text-xs shadow-none">Add Link</Button>
       </div>
     </div>
   );
@@ -116,9 +111,9 @@ export function InlineFileForm({ projectId }: { projectId: string }) {
       <button 
         onClick={() => fileInputRef.current?.click()}
         disabled={loading}
-        className="w-full py-6 border border-dashed border-border/80 bg-muted/30 rounded-lg flex flex-col items-center justify-center text-muted-foreground hover:border-border hover:bg-muted/50 transition-colors shadow-sm"
+        className="w-full py-6 border border-dashed border-zinc-300 bg-zinc-50/50 rounded-lg flex flex-col items-center justify-center text-zinc-500 hover:border-zinc-400 hover:bg-zinc-50 transition-colors shadow-sm"
       >
-        <Upload className="h-5 w-5 mb-2 text-muted-foreground/70" />
+        <Upload className="h-5 w-5 mb-2 text-zinc-400" />
         <span className="text-sm font-medium">{loading ? "Uploading..." : "Click to upload file"}</span>
       </button>
     </div>

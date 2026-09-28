@@ -12,7 +12,7 @@ export function StatusFilter() {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-sm text-muted-foreground font-medium">Filter:</span>
+      <span className="text-sm text-zinc-500 font-medium">Filter:</span>
       <Select 
         value={currentStatus} 
         onValueChange={(value: string | null) => {
@@ -25,10 +25,10 @@ export function StatusFilter() {
           router.push(`?${params.toString()}`);
         }}
       >
-        <SelectTrigger className="w-[140px] h-8 text-xs bg-zinc-900 border-zinc-800 text-zinc-100 shadow-none rounded-full px-4 hover:bg-zinc-800 transition-colors">
+        <SelectTrigger className="w-[140px] h-8 text-xs bg-transparent border-zinc-200 shadow-none focus:ring-1 focus:ring-zinc-900">
           <SelectValue placeholder="All" />
         </SelectTrigger>
-        <SelectContent className="shadow-sm border-border">
+        <SelectContent className="shadow-sm border-zinc-200">
           {FILTER_OPTIONS.map(opt => (
             <SelectItem key={opt} value={opt} className="text-xs">{opt}</SelectItem>
           ))}

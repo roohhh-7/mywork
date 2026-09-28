@@ -4,7 +4,7 @@ import { QuickAdd } from "../QuickAdd";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-screen overflow-hidden bg-background text-foreground font-sans">
+    <div className="flex h-screen overflow-hidden bg-white text-zinc-950 font-sans">
       <Sidebar />
       <main className="flex-1 overflow-y-auto">
         <div className="mx-auto max-w-5xl px-8 py-10">
