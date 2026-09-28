@@ -35,7 +35,7 @@ export function NewProjectButton() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-2 bg-zinc-900 text-white hover:bg-zinc-800 h-9 px-4">
+      <DialogTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-2 bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200 h-9 px-4">
         <Plus className="h-4 w-4" />
         Create Project
       </DialogTrigger>
@@ -58,14 +58,14 @@ export function NewProjectButton() {
               {["#ef4444", "#f97316", "#eab308", "#22c55e", "#3b82f6", "#a855f7", "#71717a"].map(c => (
                 <label key={c} className="cursor-pointer relative">
                   <input type="radio" name="color" value={c} className="peer sr-only" />
-                  <div className="w-6 h-6 rounded-full peer-checked:ring-2 peer-checked:ring-offset-2 peer-checked:ring-zinc-900" style={{ backgroundColor: c }} />
+                  <div className="w-6 h-6 rounded-full peer-checked:ring-2 peer-checked:ring-offset-2 peer-checked:ring-zinc-900 dark:peer-checked:ring-zinc-100 dark:peer-checked:ring-offset-zinc-950" style={{ backgroundColor: c }} />
                 </label>
               ))}
             </div>
           </div>
           <div className="flex justify-end gap-3 pt-4">
             <Button type="button" variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-            <Button type="submit" disabled={loading} className="bg-zinc-900 text-white hover:bg-zinc-800">
+            <Button type="submit" disabled={loading} className="bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200">
               Create
             </Button>
           </div>

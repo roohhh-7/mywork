@@ -21,10 +21,10 @@ export default async function NotesPage({ searchParams }: { searchParams: Promis
 
   return (
     <div className="space-y-8 max-w-7xl mx-auto">
-      <header className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-zinc-100">
+      <header className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-zinc-100 dark:border-zinc-800">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight">Notes</h1>
-          <p className="mt-2 text-zinc-600">Jot down your thoughts, ideas, and snippets.</p>
+          <h1 className="text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">Notes</h1>
+          <p className="mt-2 text-zinc-600 dark:text-zinc-400">Jot down your thoughts, ideas, and snippets.</p>
         </div>
         <StatusFilter />
       </header>
@@ -35,7 +35,7 @@ export default async function NotesPage({ searchParams }: { searchParams: Promis
         </div>
         
         {notes.length === 0 ? (
-          <div className="text-center py-12 border border-dashed rounded-lg text-zinc-500">
+          <div className="text-center py-12 border border-dashed dark:border-zinc-800 rounded-lg text-zinc-500 dark:text-zinc-400">
             No notes found. Create your first note above!
           </div>
         ) : (

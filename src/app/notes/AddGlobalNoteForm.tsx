@@ -24,7 +24,7 @@ export function AddGlobalNoteForm() {
     <div className="flex flex-col sm:flex-row gap-2">
       <Input 
         placeholder="New note headline..." 
-        className="flex-1 bg-white border-zinc-200 text-sm focus-visible:ring-1 focus-visible:ring-zinc-900 shadow-sm h-9"
+        className="flex-1 bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 text-sm focus-visible:ring-1 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-100 shadow-sm h-9 dark:text-zinc-100 dark:placeholder:text-zinc-500"
         value={title}
         onChange={e => setTitle(e.target.value)}
         onKeyDown={e => {
