@@ -14,6 +14,7 @@ import {
   updateNoteAction, updateLinkContentAction 
 } from "./actions";
 import { ResourceOptionsMenu } from "./ResourceOptionsMenu";
+import { NoteCard } from "./NoteCard";
 
 export const dynamic = "force-dynamic";
 
@@ -81,25 +82,13 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
             </div>
           </div>
 
-          <TabsContent value="notes" className="mt-0 outline-none max-w-3xl space-y-6">
-            <InlineNoteForm projectId={project.id} />
-            <div className="space-y-3">
+          <TabsContent value="notes" className="mt-0 outline-none w-full space-y-6">
+            <div className="max-w-md">
+              <InlineNoteForm projectId={project.id} />
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {project.notes.map(note => (
-                <div key={note.id} className="bg-white border border-zinc-200 rounded-lg p-4 shadow-sm hover:border-zinc-300 transition-colors">
-                  <div className="flex justify-between items-start gap-4">
-                    <p className="text-[14px] text-zinc-800 whitespace-pre-wrap leading-relaxed flex-1">{note.content}</p>
-                    <div className="flex items-center gap-2">
-                      <StatusDropdown currentStatus={note.status} updateAction={updateNoteStatus.bind(null, project.id, note.id)} />
-                      <ResourceOptionsMenu 
-                        id={note.id} projectId={project.id} type="note" isArchived={note.isArchived} content={note.content}
-                        deleteAction={deleteNoteAction} archiveAction={archiveNoteAction} editNoteAction={updateNoteAction}
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-3 text-[11px] text-zinc-400 font-medium">
-                    {formatDistanceToNow(note.updatedAt, { addSuffix: true })}
-                  </div>
-                </div>
+                <NoteCard key={note.id} note={note} projectId={project.id} />
               ))}
             </div>
           </TabsContent>

@@ -10,34 +10,36 @@ import { Upload } from "lucide-react";
 
 export function InlineNoteForm({ projectId }: { projectId: string }) {
   const [loading, setLoading] = useState(false);
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState("");
 
   async function handleAdd() {
-    if (!content.trim()) return;
+    if (!title.trim()) return;
     setLoading(true);
-    const res = await addNoteAction(projectId, "Note", content);
+    // Content can be empty string for now, user will open it to edit
+    const res = await addNoteAction(projectId, title.trim(), "<p>Start typing...</p>");
     setLoading(false);
     if (res.error) toast.error(res.error);
-    else { toast.success("Added"); setContent(""); }
+    else { toast.success("Added"); setTitle(""); }
   }
 
   return (
-    <div className="flex flex-col gap-2">
-      <Textarea 
-        placeholder="Write a note..." 
-        className="min-h-[80px] resize-none bg-white border-zinc-200 text-sm focus-visible:ring-1 focus-visible:ring-zinc-900 shadow-sm"
-        value={content}
-        onChange={e => setContent(e.target.value)}
+    <div className="flex flex-col sm:flex-row gap-2">
+      <Input 
+        placeholder="New note headline..." 
+        className="flex-1 bg-white border-zinc-200 text-sm focus-visible:ring-1 focus-visible:ring-zinc-900 shadow-sm h-9"
+        value={title}
+        onChange={e => setTitle(e.target.value)}
         onKeyDown={e => {
-          if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
             handleAdd();
           }
         }}
         disabled={loading}
       />
-      <div className="flex justify-end mt-1">
-        <Button size="sm" onClick={handleAdd} disabled={!content.trim() || loading} className="bg-zinc-900 text-white font-sans h-8 px-3 text-xs shadow-none">Add Note</Button>
-      </div>
+      <Button size="sm" onClick={handleAdd} disabled={!title.trim() || loading} className="bg-zinc-900 text-white font-sans h-9 px-4 text-xs shadow-none whitespace-nowrap">
+        Create Note
+      </Button>
     </div>
   );
 }

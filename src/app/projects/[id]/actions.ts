@@ -64,7 +64,7 @@ export async function updateFileStatus(projectId: string, fileId: string, status
   return { error: undefined };
 }
 
-export async function updateNoteAction(projectId: string, id: string, data: { content?: string }) {
+export async function updateNoteAction(projectId: string, id: string, data: { title?: string, content?: string }) {
   await prisma.note.update({ where: { id }, data });
   revalidatePath(`/projects/${projectId}`);
   return { error: undefined };

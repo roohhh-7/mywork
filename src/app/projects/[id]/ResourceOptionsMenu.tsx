@@ -26,6 +26,7 @@ interface ResourceOptionsMenuProps {
   projectId: string;
   type: "note" | "link" | "file";
   isArchived: boolean;
+  title?: string;
   content?: string;
   url?: string;
   description?: string;
@@ -40,6 +41,7 @@ export function ResourceOptionsMenu({
   projectId,
   type,
   isArchived,
+  title = "",
   content = "",
   url = "",
   description = "",
@@ -105,7 +107,7 @@ export function ResourceOptionsMenu({
           }
         />
         <DropdownMenuContent align="end" className="w-40 border-zinc-200 shadow-sm rounded-lg">
-          {(type === "note" || type === "link") && (
+          {type === "link" && (
             <DropdownMenuItem onClick={() => setEditOpen(true)} className="text-xs cursor-pointer">
               <Edit className="h-3.5 w-3.5 mr-2" />
               Edit
@@ -133,14 +135,6 @@ export function ResourceOptionsMenu({
           </DialogHeader>
           
           <div className="py-4 space-y-4">
-            {type === "note" && (
-              <Textarea 
-                value={editContent} 
-                onChange={(e) => setEditContent(e.target.value)}
-                className="min-h-[120px] resize-none text-sm"
-              />
-            )}
-            
             {type === "link" && (
               <>
                 <div className="space-y-1">
