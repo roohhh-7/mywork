@@ -25,7 +25,7 @@ export function StatusFilter() {
           router.push(`?${params.toString()}`);
         }}
       >
-        <SelectTrigger className="w-[140px] h-8 text-xs bg-transparent border-border shadow-none">
+        <SelectTrigger className="w-[140px] h-8 text-xs bg-zinc-900 border-zinc-800 text-zinc-100 shadow-none rounded-full px-4 hover:bg-zinc-800 transition-colors">
           <SelectValue placeholder="All" />
         </SelectTrigger>
         <SelectContent className="shadow-sm border-border">

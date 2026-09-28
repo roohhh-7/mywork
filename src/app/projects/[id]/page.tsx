@@ -48,30 +48,28 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
         </Link>
       </div>
 
-      <header className="relative pb-6 border-b border-border">
-        {project.color && (
-          <div className="absolute -left-8 top-1 bottom-1 w-1 rounded-r-md" style={{ backgroundColor: project.color }} />
-        )}
-        <h1 className="text-3xl font-semibold tracking-tight">{project.name}</h1>
+      <header className="relative pb-6 pl-4 border-b border-border/50">
+        <div className="absolute left-0 top-1 bottom-1 w-1 rounded-r bg-red-500" style={{ backgroundColor: project.color || '#ef4444' }} />
+        <h1 className="text-3xl font-bold tracking-tight text-white">{project.name}</h1>
         {project.description && (
-          <p className="mt-2 text-muted-foreground max-w-3xl">{project.description}</p>
+          <p className="mt-1 text-zinc-400 max-w-3xl">{project.description}</p>
         )}
       </header>
 
       {/* Tabs Layout */}
       <div className="pt-2">
         <Tabs defaultValue="notes" className="w-full">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 border-b border-border">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 border-b border-border/50">
             <TabsList className="bg-transparent h-auto p-0 space-x-6 justify-start rounded-none">
-              <TabsTrigger value="notes" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground data-[state=active]:border-b-2 data-[state=active]:border-foreground rounded-none px-1 pb-2.5 font-medium text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <TabsTrigger value="notes" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-zinc-100 data-[state=active]:border-b-2 data-[state=active]:border-red-500 rounded-none px-1 pb-2.5 font-medium text-sm text-zinc-500 hover:text-zinc-300 transition-colors">
                 <FileText className="h-4 w-4 mr-2" />
                 Notes
               </TabsTrigger>
-              <TabsTrigger value="links" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground data-[state=active]:border-b-2 data-[state=active]:border-foreground rounded-none px-1 pb-2.5 font-medium text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <TabsTrigger value="links" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-zinc-100 data-[state=active]:border-b-2 data-[state=active]:border-red-500 rounded-none px-1 pb-2.5 font-medium text-sm text-zinc-500 hover:text-zinc-300 transition-colors">
                 <LinkIcon className="h-4 w-4 mr-2" />
                 Links
               </TabsTrigger>
-              <TabsTrigger value="files" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground data-[state=active]:border-b-2 data-[state=active]:border-foreground rounded-none px-1 pb-2.5 font-medium text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <TabsTrigger value="files" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-zinc-100 data-[state=active]:border-b-2 data-[state=active]:border-red-500 rounded-none px-1 pb-2.5 font-medium text-sm text-zinc-500 hover:text-zinc-300 transition-colors">
                 <File className="h-4 w-4 mr-2" />
                 Files
               </TabsTrigger>

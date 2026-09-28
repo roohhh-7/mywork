@@ -46,19 +46,19 @@ export function GlobalNoteCard({ note }: { note: Note }) {
     <>
       <div 
         onClick={() => setEditOpen(true)}
-        className="bg-card border border-border rounded-lg p-4 shadow-sm hover:border-border/80 transition-all cursor-pointer aspect-square flex flex-col group relative"
+        className="bg-zinc-900/20 border border-zinc-800/50 hover:border-zinc-700/50 rounded-2xl p-5 transition-all cursor-pointer aspect-[4/3] flex flex-col group relative"
       >
         <div className="flex-1 min-h-0 overflow-hidden relative">
-          <h3 className="font-semibold text-foreground text-[15px] mb-2 line-clamp-2 leading-snug pr-6">{note.title}</h3>
-          <p className="text-[13px] text-muted-foreground leading-relaxed break-words overflow-hidden text-ellipsis line-clamp-[6] opacity-80">
+          <h3 className="font-bold text-zinc-100 text-[15px] mb-2 line-clamp-2 leading-snug pr-6">{note.title}</h3>
+          <p className="text-[13px] text-zinc-400 leading-relaxed break-words overflow-hidden text-ellipsis line-clamp-[4]">
             {previewText || "Empty note..."}
           </p>
           {/* fade out bottom of text */}
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-card to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#0a0a0a] to-transparent pointer-events-none opacity-50" />
         </div>
         
-        <div className="mt-4 pt-4 border-t border-border/50 flex items-center justify-between z-10" onClick={e => e.stopPropagation()}>
-          <span className="text-[12px] text-muted-foreground/70 font-medium">
+        <div className="mt-4 pt-4 border-t border-zinc-800/50 flex items-center justify-between z-10" onClick={e => e.stopPropagation()}>
+          <span className="text-[11px] text-zinc-500 font-medium">
             {formatDistanceToNow(new Date(note.updatedAt), { addSuffix: true })}
           </span>
           <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">

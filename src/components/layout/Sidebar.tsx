@@ -26,28 +26,28 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex h-full w-64 flex-col border-r border-border bg-muted/30">
-      <div className="flex h-14 items-center px-6 py-4">
+    <div className="flex h-full w-64 flex-col border-r border-border bg-[#0a0a0a]">
+      <div className="flex h-14 items-center px-6 py-6 pb-2">
         <Link href="/" className="flex items-center gap-2 font-semibold">
-          <span className="text-xl font-bold tracking-tight text-foreground">mywork</span>
+          <span className="text-xl font-bold tracking-tight text-white">mywork</span>
         </Link>
       </div>
 
-      <div className="px-4 py-2">
+      <div className="px-4 py-4">
         <button 
           onClick={() => {
             const event = new KeyboardEvent('keydown', { key: 'k', metaKey: true });
             document.dispatchEvent(event);
           }}
-          className="flex w-full items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90 transition-colors"
+          className="flex w-full items-center gap-2 rounded-lg bg-zinc-800/50 hover:bg-zinc-800 px-3 py-2.5 text-sm font-medium text-zinc-300 border border-zinc-800 transition-colors"
         >
           <Plus className="h-4 w-4" />
           Quick Add
-          <span className="ml-auto text-xs text-primary-foreground/70">⌘K</span>
+          <span className="ml-auto text-[10px] bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-400 border border-zinc-700">⌘K</span>
         </button>
       </div>
 
-      <nav className="flex-1 space-y-1 px-4 py-4">
+      <nav className="flex-1 space-y-1 px-3 py-4">
         {navItems.map((item) => {
           const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
           return (
@@ -55,12 +55,15 @@ export function Sidebar() {
               key={item.name}
               href={item.href}
               className={cn(
-                "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors relative",
                 isActive
-                  ? "bg-accent text-accent-foreground"
-                  : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
+                  ? "bg-red-500/[0.08] text-zinc-100"
+                  : "text-zinc-500 hover:bg-white/[0.04] hover:text-zinc-300"
               )}
             >
+              {isActive && (
+                <div className="absolute left-0 top-1.5 bottom-1.5 w-0.5 rounded-r bg-red-500" />
+              )}
               <item.icon className="h-4 w-4" />
               {item.name}
             </Link>
@@ -68,14 +71,14 @@ export function Sidebar() {
         })}
       </nav>
 
-      <div className="p-4 flex items-center justify-between">
+      <div className="p-4 flex items-center justify-between px-3">
         <Link
           href="/settings"
           className={cn(
             "flex-1 flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
             pathname === "/settings"
-              ? "bg-accent text-accent-foreground"
-              : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
+              ? "bg-red-500/[0.08] text-zinc-100"
+              : "text-zinc-500 hover:bg-white/[0.04] hover:text-zinc-300"
           )}
         >
           <Settings className="h-4 w-4" />

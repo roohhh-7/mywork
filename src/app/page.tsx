@@ -42,15 +42,15 @@ export default async function Home() {
               const resourcesCount = project._count.notes + project._count.links + project._count.files;
               return (
                 <Link key={project.id} href={`/projects/${project.id}`}>
-                  <div className="group rounded-xl border border-border bg-card p-5 shadow-sm transition-all hover:shadow-md hover:border-border/80 relative overflow-hidden">
+                  <div className="group rounded-2xl border border-zinc-800/50 bg-zinc-900/20 p-5 transition-all hover:border-zinc-700/50 relative overflow-hidden">
                     {project.color && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1" style={{ backgroundColor: project.color }} />
+                      <div className="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r bg-red-500" style={{ backgroundColor: project.color }} />
                     )}
-                    <h3 className="font-semibold text-foreground">{project.name}</h3>
+                    <h3 className="font-bold text-zinc-100">{project.name}</h3>
                     {project.description && (
-                      <p className="mt-1 text-sm text-muted-foreground line-clamp-1">{project.description}</p>
+                      <p className="mt-1 text-sm text-zinc-400 line-clamp-1">{project.description}</p>
                     )}
-                    <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground/70">
+                    <div className="mt-4 flex items-center gap-2 text-[11px] text-zinc-500 font-medium">
                       <span>{resourcesCount} resources</span>
                       <span>&middot;</span>
                       <span>Updated {formatDistanceToNow(project.updatedAt, { addSuffix: true })}</span>
