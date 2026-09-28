@@ -26,7 +26,7 @@ export function InlineNoteForm({ projectId }: { projectId: string }) {
     <div className="flex flex-col sm:flex-row gap-2">
       <Input 
         placeholder="New note headline..." 
-        className="flex-1 bg-white dark:bg-white/[0.02] border-zinc-200 dark:border-white/[0.08] text-sm focus-visible:ring-1 focus-visible:ring-zinc-900 dark:focus-visible:ring-white/[0.2] shadow-sm h-9 dark:text-zinc-100 dark:placeholder:text-zinc-500"
+        className="flex-1 bg-card border-border text-sm shadow-sm h-9 text-foreground placeholder:text-muted-foreground"
         value={title}
         onChange={e => setTitle(e.target.value)}
         onKeyDown={e => {
@@ -37,7 +37,7 @@ export function InlineNoteForm({ projectId }: { projectId: string }) {
         }}
         disabled={loading}
       />
-      <Button size="sm" onClick={handleAdd} disabled={!title.trim() || loading} className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-sans h-9 px-4 text-xs shadow-none whitespace-nowrap">
+      <Button size="sm" onClick={handleAdd} disabled={!title.trim() || loading} className="bg-primary text-primary-foreground hover:bg-primary/90 font-sans h-9 px-4 text-xs shadow-none whitespace-nowrap">
         Create Note
       </Button>
     </div>
@@ -64,23 +64,23 @@ export function InlineLinkForm({ projectId }: { projectId: string }) {
   }
 
   return (
-    <div className="flex flex-col gap-3 p-4 bg-white dark:bg-[#09090b] border border-zinc-200 dark:border-white/[0.08] rounded-lg shadow-sm">
+    <div className="flex flex-col gap-3 p-4 bg-card border border-border rounded-lg shadow-sm">
       <Input 
         placeholder="https://..." 
         value={url}
         onChange={e => setUrl(e.target.value)}
         disabled={loading}
-        className="bg-white dark:bg-white/[0.02] border-zinc-200 dark:border-white/[0.08] focus-visible:ring-1 focus-visible:ring-zinc-900 dark:focus-visible:ring-white/[0.2] h-9 dark:text-zinc-100 dark:placeholder:text-zinc-500"
+        className="bg-background border-border h-9 text-foreground placeholder:text-muted-foreground"
       />
       <Input 
         placeholder="Caption or note about this link..." 
         value={caption}
         onChange={e => setCaption(e.target.value)}
         disabled={loading}
-        className="bg-white dark:bg-white/[0.02] border-zinc-200 dark:border-white/[0.08] focus-visible:ring-1 focus-visible:ring-zinc-900 dark:focus-visible:ring-white/[0.2] h-9 dark:text-zinc-100 dark:placeholder:text-zinc-500"
+        className="bg-background border-border h-9 text-foreground placeholder:text-muted-foreground"
       />
       <div className="flex justify-end mt-1">
-        <Button size="sm" onClick={handleAdd} disabled={!url.trim() || loading} className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-sans h-8 px-3 text-xs shadow-none">Add Link</Button>
+        <Button size="sm" onClick={handleAdd} disabled={!url.trim() || loading} className="bg-primary text-primary-foreground hover:bg-primary/90 font-sans h-8 px-3 text-xs shadow-none">Add Link</Button>
       </div>
     </div>
   );
@@ -111,9 +111,9 @@ export function InlineFileForm({ projectId }: { projectId: string }) {
       <button 
         onClick={() => fileInputRef.current?.click()}
         disabled={loading}
-        className="w-full py-6 border border-dashed border-zinc-300 dark:border-white/[0.1] bg-zinc-50/50 dark:bg-white/[0.01] rounded-lg flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 hover:border-zinc-400 dark:hover:border-white/[0.2] hover:bg-zinc-50 dark:hover:bg-white/[0.03] transition-colors shadow-sm"
+        className="w-full py-6 border border-dashed border-border/80 bg-muted/30 rounded-lg flex flex-col items-center justify-center text-muted-foreground hover:border-border hover:bg-muted/50 transition-colors shadow-sm"
       >
-        <Upload className="h-5 w-5 mb-2 text-zinc-400 dark:text-zinc-500" />
+        <Upload className="h-5 w-5 mb-2 text-muted-foreground/70" />
         <span className="text-sm font-medium">{loading ? "Uploading..." : "Click to upload file"}</span>
       </button>
     </div>

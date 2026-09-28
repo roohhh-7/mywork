@@ -24,7 +24,7 @@ export function AddGlobalNoteForm() {
     <div className="flex flex-col sm:flex-row gap-2">
       <Input 
         placeholder="New note headline..." 
-        className="flex-1 bg-white dark:bg-white/[0.02] border-zinc-200 dark:border-white/[0.08] text-sm focus-visible:ring-1 focus-visible:ring-zinc-900 dark:focus-visible:ring-white/[0.2] shadow-sm h-9 dark:text-zinc-100 dark:placeholder:text-zinc-500"
+        className="flex-1 bg-card border-border text-sm shadow-sm h-9 text-foreground placeholder:text-muted-foreground"
         value={title}
         onChange={e => setTitle(e.target.value)}
         onKeyDown={e => {
@@ -35,7 +35,7 @@ export function AddGlobalNoteForm() {
         }}
         disabled={loading}
       />
-      <Button size="sm" onClick={handleAdd} disabled={!title.trim() || loading} className="bg-zinc-900 text-white font-sans h-9 px-4 text-xs shadow-none whitespace-nowrap">
+      <Button size="sm" onClick={handleAdd} disabled={!title.trim() || loading} className="bg-primary text-primary-foreground hover:bg-primary/90 font-sans h-9 px-4 text-xs shadow-none whitespace-nowrap">
         Create Note
       </Button>
     </div>

@@ -41,37 +41,37 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
 
   return (
     <div className="space-y-10">
-      <div className="flex items-center text-sm text-zinc-500">
-        <Link href="/projects" className="flex items-center hover:text-zinc-900 transition-colors">
+      <div className="flex items-center text-sm text-muted-foreground">
+        <Link href="/projects" className="flex items-center hover:text-foreground transition-colors">
           <ArrowLeft className="h-4 w-4 mr-1" />
           Projects
         </Link>
       </div>
 
-      <header className="relative pb-6 border-b border-zinc-100">
+      <header className="relative pb-6 border-b border-border">
         {project.color && (
           <div className="absolute -left-8 top-1 bottom-1 w-1 rounded-r-md" style={{ backgroundColor: project.color }} />
         )}
         <h1 className="text-3xl font-semibold tracking-tight">{project.name}</h1>
         {project.description && (
-          <p className="mt-2 text-zinc-600 max-w-3xl">{project.description}</p>
+          <p className="mt-2 text-muted-foreground max-w-3xl">{project.description}</p>
         )}
       </header>
 
       {/* Tabs Layout */}
       <div className="pt-2">
         <Tabs defaultValue="notes" className="w-full">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 border-b border-zinc-200">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 border-b border-border">
             <TabsList className="bg-transparent h-auto p-0 space-x-6 justify-start rounded-none">
-              <TabsTrigger value="notes" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-zinc-900 dark:data-[state=active]:text-zinc-100 data-[state=active]:border-b-2 data-[state=active]:border-zinc-900 dark:data-[state=active]:border-zinc-100 rounded-none px-1 pb-2.5 font-medium text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors">
+              <TabsTrigger value="notes" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground data-[state=active]:border-b-2 data-[state=active]:border-foreground rounded-none px-1 pb-2.5 font-medium text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <FileText className="h-4 w-4 mr-2" />
                 Notes
               </TabsTrigger>
-              <TabsTrigger value="links" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-zinc-900 dark:data-[state=active]:text-zinc-100 data-[state=active]:border-b-2 data-[state=active]:border-zinc-900 dark:data-[state=active]:border-zinc-100 rounded-none px-1 pb-2.5 font-medium text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors">
+              <TabsTrigger value="links" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground data-[state=active]:border-b-2 data-[state=active]:border-foreground rounded-none px-1 pb-2.5 font-medium text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <LinkIcon className="h-4 w-4 mr-2" />
                 Links
               </TabsTrigger>
-              <TabsTrigger value="files" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-zinc-900 dark:data-[state=active]:text-zinc-100 data-[state=active]:border-b-2 data-[state=active]:border-zinc-900 dark:data-[state=active]:border-zinc-100 rounded-none px-1 pb-2.5 font-medium text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors">
+              <TabsTrigger value="files" className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground data-[state=active]:border-b-2 data-[state=active]:border-foreground rounded-none px-1 pb-2.5 font-medium text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <File className="h-4 w-4 mr-2" />
                 Files
               </TabsTrigger>
@@ -101,17 +101,17 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
                 return (
                   <div 
                     key={link.id} 
-                    className="block bg-white dark:bg-white/[0.02] border border-zinc-200 dark:border-white/[0.08] rounded-lg p-4 shadow-sm dark:shadow-none hover:border-zinc-300 dark:hover:border-white/[0.15] dark:hover:bg-white/[0.04] transition-all"
+                    className="block bg-card border border-border rounded-lg p-4 shadow-sm hover:border-border/80 transition-all"
                   >
                     <div className="flex justify-between items-start gap-4">
                       {link.imageUrl && (
-                        <div className="w-12 h-12 shrink-0 rounded bg-zinc-100 dark:bg-white/[0.05] overflow-hidden border border-zinc-200 dark:border-white/[0.05] hidden sm:block">
+                        <div className="w-12 h-12 shrink-0 rounded bg-muted overflow-hidden border border-border/50 hidden sm:block">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img src={link.imageUrl} alt="" className="w-full h-full object-cover" />
                         </div>
                       )}
                       <div className="flex-1 min-w-0">
-                        <a href={safeHref} target="_blank" rel="noreferrer" className="font-medium text-[14px] text-zinc-900 dark:text-zinc-100 line-clamp-1 break-all mb-1 hover:underline inline-block">
+                        <a href={safeHref} target="_blank" rel="noreferrer" className="font-medium text-[14px] text-foreground line-clamp-1 break-all mb-1 hover:underline inline-block">
                           {(() => {
                             try {
                               return new URL(safeHref).hostname;
@@ -121,7 +121,7 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
                           })()}
                         </a>
                       {link.description && (
-                        <p className="text-[13px] text-zinc-600 dark:text-zinc-400 line-clamp-2">{link.description}</p>
+                        <p className="text-[13px] text-muted-foreground line-clamp-2">{link.description}</p>
                       )}
                     </div>
                     <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2">
@@ -132,7 +132,7 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
                       />
                     </div>
                   </div>
-                  <div className="mt-3 text-[11px] text-zinc-400 font-medium">
+                  <div className="mt-3 text-[11px] text-muted-foreground/70 font-medium">
                     {formatDistanceToNow(link.createdAt, { addSuffix: true })}
                   </div>
                 </div>
@@ -145,10 +145,10 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
             <InlineFileForm projectId={project.id} />
             <div className="space-y-3">
               {project.files.map(file => (
-                <div key={file.id} className="bg-white dark:bg-white/[0.02] border border-zinc-200 dark:border-white/[0.08] rounded-lg p-4 shadow-sm dark:shadow-none flex items-center justify-between hover:border-zinc-300 dark:hover:border-white/[0.15] dark:hover:bg-white/[0.04] transition-all">
+                <div key={file.id} className="bg-card border border-border rounded-lg p-4 shadow-sm flex items-center justify-between hover:border-border/80 transition-all">
                   <div className="min-w-0 flex-1">
-                    <div className="font-medium text-[14px] text-zinc-900 dark:text-zinc-100 truncate">{file.name}</div>
-                    <div className="mt-1 text-[11px] text-zinc-400 font-medium flex items-center gap-2">
+                    <div className="font-medium text-[14px] text-foreground truncate">{file.name}</div>
+                    <div className="mt-1 text-[11px] text-muted-foreground/70 font-medium flex items-center gap-2">
                       <span>{(file.fileSize / 1024 / 1024).toFixed(2)} MB</span>
                       <span>&middot;</span>
                       <span>{formatDistanceToNow(file.createdAt, { addSuffix: true })}</span>

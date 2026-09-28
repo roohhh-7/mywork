@@ -29,17 +29,17 @@ export function AddProgressForm() {
 
   return (
     <form onSubmit={onSubmit} className="flex items-center gap-2 relative">
-      <div className="absolute left-3 text-zinc-400 dark:text-zinc-500">
+      <div className="absolute left-3 text-muted-foreground">
         <Plus className="h-5 w-5" />
       </div>
       <Input 
         value={content}
         onChange={e => setContent(e.target.value)}
         placeholder="What did you accomplish?"
-        className="pl-10 h-12 bg-zinc-50 dark:bg-white/[0.02] border-zinc-200 dark:border-white/[0.08] focus-visible:ring-1 focus-visible:ring-zinc-900 dark:focus-visible:ring-white/[0.2] dark:placeholder:text-zinc-500 dark:text-zinc-100"
+        className="pl-10 h-12 bg-muted/30 border-border placeholder:text-muted-foreground text-foreground"
         disabled={loading}
       />
-      <Button type="submit" disabled={!content.trim() || loading} className="h-12 px-6 bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200">
+      <Button type="submit" disabled={!content.trim() || loading} className="h-12 px-6 bg-primary hover:bg-primary/90 text-primary-foreground">
         Add
       </Button>
     </form>
