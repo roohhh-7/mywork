@@ -16,7 +16,7 @@ export function InlineNoteForm({ projectId }: { projectId: string }) {
     if (!title.trim()) return;
     setLoading(true);
     // Content can be empty string for now, user will open it to edit
-    const res = await addNoteAction(projectId, title.trim(), "<p>Start typing...</p>");
+    const res = await addNoteAction(projectId, title.trim(), "");
     setLoading(false);
     if (res.error) toast.error(res.error);
     else { toast.success("Added"); setTitle(""); }

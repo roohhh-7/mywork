@@ -14,7 +14,7 @@ export function AddGlobalNoteForm() {
     if (!title.trim()) return;
     setLoading(true);
     // Content can be empty string for now, user will open it to edit
-    const res = await addGlobalNoteAction(title.trim(), "<p>Start typing...</p>");
+    const res = await addGlobalNoteAction(title.trim(), "");
     setLoading(false);
     if (res.error) toast.error(res.error);
     else { toast.success("Added Note"); setTitle(""); }

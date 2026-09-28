@@ -4,6 +4,7 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
 import Image from '@tiptap/extension-image';
+import Placeholder from '@tiptap/extension-placeholder';
 import { Bold, Italic, Heading1, Heading2, Heading3, Heading4, Highlighter, Image as ImageIcon } from 'lucide-react';
 import { Button } from './button';
 import { cn } from '@/lib/utils';
@@ -25,6 +26,9 @@ export function RichTextEditor({ content, onChange }: { content: string, onChang
       Image.configure({
         inline: true,
         allowBase64: true,
+      }),
+      Placeholder.configure({
+        placeholder: 'Start typing...',
       }),
     ],
     content,
