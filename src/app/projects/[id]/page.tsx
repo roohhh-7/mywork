@@ -15,6 +15,7 @@ import {
 } from "./actions";
 import { ResourceOptionsMenu } from "./ResourceOptionsMenu";
 import { NoteCard } from "./NoteCard";
+import { ProjectCardMenu } from "../ProjectCardMenu";
 
 export const dynamic = "force-dynamic";
 
@@ -48,14 +49,17 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
         </Link>
       </div>
 
-      <header className="relative pb-6 border-b border-zinc-100">
-        {project.color && (
-          <div className="absolute -left-8 top-1 bottom-1 w-1 rounded-r-md" style={{ backgroundColor: project.color }} />
-        )}
-        <h1 className="text-3xl font-semibold tracking-tight">{project.name}</h1>
-        {project.description && (
-          <p className="mt-2 text-zinc-600 max-w-3xl">{project.description}</p>
-        )}
+      <header className="relative pb-6 border-b border-zinc-100 flex items-start justify-between gap-4">
+        <div>
+          {project.color && (
+            <div className="absolute -left-8 top-1 bottom-1 w-1 rounded-r-md" style={{ backgroundColor: project.color }} />
+          )}
+          <h1 className="text-3xl font-semibold tracking-tight">{project.name}</h1>
+          {project.description && (
+            <p className="mt-2 text-zinc-600 max-w-3xl">{project.description}</p>
+          )}
+        </div>
+        <ProjectCardMenu projectId={project.id} projectName={project.name} redirectOnDelete variant="header" />
       </header>
 
       {/* Tabs Layout */}

@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
-import { Plus } from "lucide-react";
 import { NewProjectButton } from "./NewProjectButton";
+import { ProjectCardMenu } from "./ProjectCardMenu";
 
 export const dynamic = "force-dynamic";
 
@@ -27,27 +27,38 @@ export default async function ProjectsPage() {
         {projects.map(project => {
           const resourcesCount = project._count.notes + project._count.links + project._count.files;
           return (
-            <Link key={project.id} href={`/projects/${project.id}`}>
-              <div className="group rounded-xl border bg-white p-5 shadow-sm transition-all hover:shadow-md hover:border-zinc-300 relative overflow-hidden h-full flex flex-col">
-                {project.color && (
-                  <div className="absolute left-0 top-0 bottom-0 w-1" style={{ backgroundColor: project.color }} />
-                )}
-                <div className="flex items-start justify-between mb-2">
-                  <h3 className="font-semibold text-zinc-900 leading-tight">{project.name}</h3>
+            <div
+              key={project.id}
+              className="group rounded-xl border bg-white p-5 shadow-sm transition-all hover:shadow-md hover:border-zinc-300 relative overflow-hidden h-full flex flex-col"
+            >
+              {project.color && (
+                <div className="absolute left-0 top-0 bottom-0 w-1" style={{ backgroundColor: project.color }} />
+              )}
+
+              <Link href={`/projects/${project.id}`} className="absolute inset-0 z-0">
+                <span className="sr-only">Open {project.name}</span>
+              </Link>
+
+              <div className="flex items-start justify-between mb-2 relative z-10 pointer-events-none">
+                <h3 className="font-semibold text-zinc-900 leading-tight pr-2">{project.name}</h3>
+                <div className="flex items-center gap-1.5 pointer-events-auto shrink-0">
                   <span className="text-[10px] font-medium uppercase tracking-wider text-zinc-500 bg-zinc-100 px-2 py-0.5 rounded-full">
                     {project.status}
                   </span>
-                </div>
-                {project.description && (
-                  <p className="text-sm text-zinc-500 flex-1">{project.description}</p>
-                )}
-                <div className="mt-6 flex items-center gap-2 text-xs text-zinc-400">
-                  <span>{resourcesCount} resources</span>
-                  <span>&middot;</span>
-                  <span>Updated {formatDistanceToNow(project.updatedAt, { addSuffix: true })}</span>
+                  <ProjectCardMenu projectId={project.id} projectName={project.name} />
                 </div>
               </div>
-            </Link>
+
+              {project.description && (
+                <p className="text-sm text-zinc-500 flex-1 relative z-10 pointer-events-none">{project.description}</p>
+              )}
+
+              <div className="mt-6 flex items-center gap-2 text-xs text-zinc-400 relative z-10 pointer-events-none">
+                <span>{resourcesCount} resources</span>
+                <span>&middot;</span>
+                <span>Updated {formatDistanceToNow(project.updatedAt, { addSuffix: true })}</span>
+              </div>
+            </div>
           );
         })}
       </div>

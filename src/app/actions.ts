@@ -23,3 +23,23 @@ export async function createProject(formData: FormData) {
   revalidatePath("/projects");
   return { project, error: undefined };
 }
+
+export async function deleteProjectAction(id: string) {
+  try {
+    await prisma.$transaction([
+      prisma.note.deleteMany({ where: { projectId: id } }),
+      prisma.link.deleteMany({ where: { projectId: id } }),
+      prisma.file.deleteMany({ where: { projectId: id } }),
+      prisma.progressItem.updateMany({ where: { projectId: id }, data: { projectId: null } }),
+      prisma.project.delete({ where: { id } }),
+    ]);
+
+    revalidatePath("/");
+    revalidatePath("/projects");
+    return { error: undefined };
+  } catch (error) {
+    console.error("Failed to delete project:", error);
+    return { error: "Failed to delete project. Please try again." };
+  }
+}
+
